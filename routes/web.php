@@ -26,5 +26,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 //Route::get("/test",[Controller::class,'test']);
 Route::get('/', function() {
     return view('login');
-});
+})->name('login');
 Route::post('/loginGet', [Controller::class, 'login']);
+
+Route::post('/getRegister', [Controller::class, 'registerAdmin']);
+
+Route::get('/register', [Controller::class, 'register'])->name('register');
