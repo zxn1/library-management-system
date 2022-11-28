@@ -5,6 +5,15 @@ html, body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.ownli {
+  background-color : #394263;
+  width :  100%;
+}
+
+.ownli:hover {
+  background-color : #303753;
+}
+
 a {
   text-decoration: none;
 }
