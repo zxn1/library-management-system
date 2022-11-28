@@ -112,7 +112,7 @@
     </div>
     <div class="row row--align-v-center row--align-h-center">
       <ul class="navList">
-        <li class="navList__heading">documents<i class="far fa-file-alt"></i></li>
+        <li class="navList__heading">Dokumen<i class="far fa-file-alt"></i></li>
 
           <li>
           <a href="{{route('dash')}}">
@@ -124,7 +124,7 @@
                 </svg>
             </span>
             </span>
-            <span class="navList__subheading-title" style="position : relative; top : -16px; margin-left : 44px;">Dashboard</span>
+            <span class="navList__subheading-title" style="position : relative; top : -16px; margin-left : 44px;">Papan Pemuka</span>
           </div>
           </a>
           
@@ -132,13 +132,19 @@
 
         <li>
           <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-plane-departure"></i></span>
-            <span class="navList__subheading-title">travel</span>
+            <span class="navList__subheading-icon">
+                <span style="position : relative; top : 10px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book-half" viewBox="0 0 16 16">
+                        <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                    </svg>
+                </span>
+            </span>
+            <span class="navList__subheading-title" style="position : relative; top : -10px;">Buku</span>
           </div>
           <ul class="subList subList--hidden">
-            <li class="subList__item">domestic</li>
-            <li class="subList__item">foreign</li>
-            <li class="subList__item">misc</li>
+            <a href=""><li class="subList__item">Daftar Kategori</li></a>
+            <a href="{{route('bkreg')}}"><li class="subList__item">Daftar Buku Baru</li></a>
+            <li class="subList__item">soon..</li>
           </ul>
         </li>
         <li>

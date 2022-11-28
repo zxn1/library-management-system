@@ -20,7 +20,7 @@ class CreateBooksTable extends Migration
             $table->string('author');
             $table->date('year_acquisition');
             $table->string('language_type');
-            $table->string('category');
+            $table->string('category'); //ni nanti ganti ngn foreign key - foreign dgn table category
             $table->timestamps();
         });
     }

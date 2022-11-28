@@ -52,6 +52,15 @@ Route::get('/register', function(){
     }
 })->name('register');
 
+Route::get('/bookregister', function(){
+    if(!Auth::check())
+    {
+        return redirect()->route('login');
+    } else {
+        return view('bookregister');
+    }
+})->name('bkreg');
+
 
 //go to controller
 Route::post('/loginGet', [Controller::class, 'login']);
