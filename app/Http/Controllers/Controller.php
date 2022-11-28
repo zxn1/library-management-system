@@ -10,32 +10,22 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Validator;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    
-    /*function test ()
-    {
-        return view('test', ['data'=>'testesatd']);
-    }*/
 
     function login (Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return view('test', ['data'=>'ok']);
-        } else {
-            return view('test', ['data'=>'ko']);
-        }
-
-        /*if($request->user)
+        $this->validate($request, ['email' => 'required|email', 'password' => 'required']);
+        $user = $request->except(['_token']);
+        if(Auth::attempt($user))
         {
-            return view('test', ['data'=>'data ada '. $request->user]);
+            return redirect()->route('dash');
         } else {
-            return view('test', ['data'=>'tiada data']);
-        }*/
+            return redirect()->back()->with('error', 'Fails to make authentication!');
+        }
 
         /*
         
@@ -60,6 +50,47 @@ class Controller extends BaseController
 
     function register(Request $request)
     {
-        return view('register');
+        /*$this->validate(request(), [
+            'fname' => 'required',
+            'lname' => 'required',
+            'role' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'cpassword' => 'required'
+        ]);
+
+        //return Request()->password;
+        if(!(Request()->password == Request()->cpassword))
+        {
+            //if not satisfied
+            
+        } */
+
+        $validator =  Validator::make($request->all(), [
+            'fname' => 'required',
+            'lname' => 'required',
+            'role' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'cpassword' => 'required'
+        ]);
+
+        if (($validator->fails()) || ($request->password != $request->cpassword)) {
+            return redirect()->back()->with('status', 'Fails to register');
+        } else {
+            $fname = $request->fname;
+            $lname = $request->lname;
+            //$user = User::create(request(['name', , 'email', 'password']));
+
+            $user = new User;
+            $user->name = $fname . ' ' . $lname;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            auth()->login($user);
+
+            return redirect()->to('/dash');
+        }
     }
 }

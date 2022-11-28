@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +24,23 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     return view('test', ['data' => 'ayam']);
 });*/
 
-//Route::get("/test",[Controller::class,'test']);
 Route::get('/', function() {
-    return view('login');
+    if(!Auth::check())
+    {
+        return view('login');
+    } else {
+        return redirect()->route('dash');
+    }
 })->name('login');
+
+Route::get('/dashboard', function() {
+
+})->name('dash');
+
+Route::get('/register', function(){
+    return view('register');
+})->name('register');
+
 Route::post('/loginGet', [Controller::class, 'login']);
 
-Route::post('/getRegister', [Controller::class, 'registerAdmin']);
-
-Route::get('/register', [Controller::class, 'register'])->name('register');
+Route::post('/getRegister', [Controller::class, 'register']);

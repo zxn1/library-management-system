@@ -41,7 +41,8 @@
   <div class="col-lg-4">
   </div>
     <div class="col-lg-3">
-      <p style="color : white; font-size : 25px; margin-top : 15px; font-family: 'Oxygen'; margin-left : 20px;">Library Management System</br>SK Pengkalan Ara</p>
+      <p style="color : white; font-size : 25px; margin-top : 15px; font-family: 'Oxygen'; margin-left : 20px; position : relative; top : 10px">Sistem Pengurusan</p>
+      <p style="color : white; font-size : 18px; font-family: 'Oxygen'; margin-left : 20px;">Perpustakaan SK Pengkalan Ara</p>
     </div>
     <div class="col-lg-2">
       <center>
