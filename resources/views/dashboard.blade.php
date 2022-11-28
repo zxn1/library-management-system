@@ -76,10 +76,6 @@
             <span class="dropdown__icon"><i class="far fa-user"></i></span>
             <span class="dropdown__title">my profile</span>
           </li>
-          <li class="dropdown__list-item">
-            <span class="dropdown__icon"><i class="fas fa-clipboard-list"></i></span>
-            <span class="dropdown__title">my account</span>
-          </li>
           <a href="{{route('logout')}}">
           <li class="dropdown__list-item">
             <span class="dropdown__icon"><i class="fas fa-sign-out-alt"></i></span>
