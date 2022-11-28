@@ -75,7 +75,6 @@ a {
   border: none;
 }
 .header__avatar {
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1609106/headshot.png");
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 50%;
@@ -335,7 +334,7 @@ a {
   height: 250px;
   color: #FFF;
   background-size: cover;
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1609106/lake-shadow-water.jpg");
+  background-image: url("/src/img/skpa.png");
   margin-bottom: 20px;
 }
 .main-header__intro-wrapper {
