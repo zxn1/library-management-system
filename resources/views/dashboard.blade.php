@@ -149,7 +149,9 @@
         </li>
         <li>
           <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="far fa-angry"></i></span>
+            <span class="navList__subheading-icon">
+                <i class="far fa-angry"></i>
+            </span>
             <span class="navList__subheading-title">taxes</span>
           </div>
           <ul class="subList subList--hidden">
