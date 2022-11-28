@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<div class='box' id="box">
+<div class='box' id="box" style="margin-top : 10vh;">
   <div class='box-form'>
     <div class='box-login-tab'></div>
     <div class='box-login-title'>
@@ -33,7 +33,6 @@
           </button>
         </div>
         @endif
-
 
             <input type="button" id="moreop" onclick="openLoginInfo();adjustBox();" class='b b-form i i-more' title='Mais Informações'></input>
                 <p class='field'>

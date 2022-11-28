@@ -67,10 +67,10 @@
     <script>
 
       //responsive features
-      if(window.screen.height <= 840)
+      /*if(window.screen.height <= 840)
       {
         document.getElementById("box").style.marginTop = '100px';
-      }
+      }*/
       
       //responsive features
       function adjustBox()

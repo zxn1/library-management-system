@@ -108,17 +108,17 @@
     <div class="row row--align-v-center row--align-h-center">
       <ul class="navList">
         <li class="navList__heading">documents<i class="far fa-file-alt"></i></li>
+
           <li>
           <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-briefcase-medical"></i></span>
-            <span class="navList__subheading-title">insurance</span>
+            <span class="navList__subheading-icon">
+                <i class="fas fa-briefcase-medical" style="position : relative; top : 10px;"></i>
+            </span>
+            <span class="navList__subheading-title" style="position : relative; top : -7px;">insurance</span>
           </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">medical</li>
-            <li class="subList__item">vision</li>
-            <li class="subList__item">dental</li>
-          </ul>
+          
         </li>
+
         <li>
           <div class="navList__subheading row row--align-v-center">
             <span class="navList__subheading-icon"><i class="fas fa-plane-departure"></i></span>
