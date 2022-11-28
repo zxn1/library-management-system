@@ -34,7 +34,7 @@ Route::get('/', function() {
 })->name('login');
 
 Route::get('/dashboard', function() {
-
+    return view('dashboard');
 })->name('dash');
 
 Route::get('/register', function(){
