@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     return view('test', ['data' => 'ayam']);
 });*/
 
+//return view
 Route::get('/', function() {
     if(!Auth::check())
     {
@@ -34,13 +35,27 @@ Route::get('/', function() {
 })->name('login');
 
 Route::get('/dashboard', function() {
-    return view('dashboard');
+    if(!Auth::check())
+    {
+        return view('login');
+    } else {
+        return view('dashboard');
+    }
 })->name('dash');
 
 Route::get('/register', function(){
-    return view('register');
+    if(!Auth::check())
+    {
+        return view('register');
+    } else {
+        return redirect()->route('dash');
+    }
 })->name('register');
 
+
+//go to controller
 Route::post('/loginGet', [Controller::class, 'login']);
 
 Route::post('/getRegister', [Controller::class, 'register']);
+
+Route::get('/logout', [Controller::class, 'logout'])->name('logout');

@@ -25,6 +25,15 @@
         </div>
         @endif
 
+        @if (session('logout'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Error!</strong> {{ session('logout') }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        @endif
+
 
             <input type="button" id="moreop" onclick="openLoginInfo();adjustBox();" class='b b-form i i-more' title='Mais Informações'></input>
                 <p class='field'>

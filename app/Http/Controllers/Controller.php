@@ -18,14 +18,33 @@ class Controller extends BaseController
 
     function login (Request $request)
     {
+
+        $validator =  Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'Kriteria e-mail atau kata kunci tidak tepat.');
+        } else 
+        {
+            $user = $request->except(['_token']);
+            if(Auth::attempt($user))
+            {
+                return redirect()->route('dash');
+            } else {
+                return redirect()->back()->with('error', 'Gagal untuk membuat pengesahan.');
+            }
+        }
+        /*
         $this->validate($request, ['email' => 'required|email', 'password' => 'required']);
         $user = $request->except(['_token']);
         if(Auth::attempt($user))
         {
             return redirect()->route('dash');
         } else {
-            return redirect()->back()->with('error', 'Fails to make authentication!');
-        }
+            return redirect()->back()->with('error', 'Gagal untuk membuat pengesahan.');
+        } */
 
         /*
         
@@ -76,7 +95,7 @@ class Controller extends BaseController
         ]);
 
         if (($validator->fails()) || ($request->password != $request->cpassword)) {
-            return redirect()->back()->with('status', 'Fails to register');
+            return redirect()->back()->with('status', 'Gagal untuk mendaftar akaun baru.');
         } else {
             $fname = $request->fname;
             $lname = $request->lname;
@@ -91,6 +110,16 @@ class Controller extends BaseController
             auth()->login($user);
 
             return redirect()->to('/dash');
+        }
+    }
+
+    function logout()
+    {
+        if(Auth::logout())
+        {
+            return redirect()->route('login')->with('logout', 'Berjaya log keluar!');
+        } else {
+            return redirect()->back()->with('faillogout', 'Gagal untuk log keluar.');
         }
     }
 }

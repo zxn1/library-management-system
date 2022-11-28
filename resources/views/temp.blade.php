@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{asset('./resource/wave.style.css')}}">
+<link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 <style>
 
   html, body

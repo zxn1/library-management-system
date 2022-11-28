@@ -2,12 +2,13 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - CSS Grid Modern Responsive Dashboard</title>
+  <title>Papan Pemuka</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="shortcut icon" type="image/png" href="#"><link rel="stylesheet" href="{{asset('/resource/dash.style.css')}}">
-
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('/resource/dash.style.css')}}">
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -28,10 +29,12 @@
             <span class="dropdown__icon"><i class="fas fa-clipboard-list"></i></span>
             <span class="dropdown__title">my account</span>
           </li>
+          <a href="{{route('logout')}}">
           <li class="dropdown__list-item">
             <span class="dropdown__icon"><i class="fas fa-sign-out-alt"></i></span>
             <span class="dropdown__title">log out</span>
           </li>
+        </a>
         </ul>
       </div>
     </div>
@@ -40,7 +43,7 @@
   <aside class="sidenav">
     <div class="sidenav__brand">
       <i class="fas fa-feather-alt sidenav__brand-icon"></i>
-      <a class="sidenav__brand-link" href="#">Ux<span class="text-light">Pro</span></a>
+      <a class="sidenav__brand-link" href="#">SK<span class="text-light">PA</span></a>
       <i class="fas fa-times sidenav__brand-close"></i>
     </div>
     <div class="sidenav__profile">
@@ -261,6 +264,16 @@
           </div>
         </div>
       </div>
+
+        @if (session('faillogout'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" style="position : absolute; top : 15px; width : 80%; margin-left : 20px;">
+            <strong>Error!</strong> {{ session('faillogout') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+
     </div>
     <div class="main-overview">
       <div class="overviewCard">
@@ -430,6 +443,6 @@
 <script src='https://www.amcharts.com/lib/3/serial.js'></script>
 <script src='https://www.amcharts.com/lib/3/themes/light.js'></script>
 <script  src="{{asset('/resource/dash.script.js')}}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
