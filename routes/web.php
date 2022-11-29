@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\author;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -61,10 +62,21 @@ Route::get('/bookregister', function(){
     }
 })->name('bkreg');
 
+Route::get('/addauthors', function()
+{
+    return view('addauthor');
+})->name('addauthor');
+
 
 //go to controller
 Route::post('/loginGet', [Controller::class, 'login']);
 
+Route::get('/authors', [author::class, 'displayauthors'])->name('authors');
+
 Route::post('/getRegister', [Controller::class, 'register']);
 
 Route::get('/logout', [Controller::class, 'logout'])->name('logout');
+
+Route::post('/registerAuthor', [author::class, 'addauthor'])->name('authreg');
+
+Route::get('/removeAuthor/{id}', [author::class, 'deleteauthor']);
