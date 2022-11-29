@@ -80,3 +80,7 @@ Route::get('/logout', [Controller::class, 'logout'])->name('logout');
 Route::post('/registerAuthor', [author::class, 'addauthor'])->name('authreg');
 
 Route::get('/removeAuthor/{id}', [author::class, 'deleteauthor']);
+
+Route::get('/modifyauthors/{id}', [author::class, 'passauthor']);
+
+Route::post('/editauthor', [author::class, 'editauthor'])->name('editauth');

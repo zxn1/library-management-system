@@ -14,9 +14,9 @@
         Tambah Pengarang</h5>
     </div>
 
-    @if (session('success'))
+    @if (session('status'))
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>Ralat!</strong> {{ session('success') }}
+    <strong>Ralat!</strong> {{ session('status') }}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -38,7 +38,7 @@
                     </div>
                     <input type="text" class="form-control" placeholder="Nama Pengarang" aria-label="authorname" name="name" aria-describedby="basic-addon1">
                     </div>
-                    <button type="submit" class="btn btn-info" style="margin-bottom : 15px;">Save</button>
+                    <button type="submit" class="btn btn-info" style="margin-bottom : 15px;">Simpan</button>
                 </form>
             </div>
        </div>
