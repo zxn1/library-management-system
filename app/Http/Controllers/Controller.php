@@ -122,4 +122,5 @@ class Controller extends BaseController
             return redirect()->back()->with('faillogout', 'Gagal untuk log keluar.');
         }
     }
+    
 }
