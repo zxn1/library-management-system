@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\author;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\language;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,6 +68,11 @@ Route::get('/addauthors', function()
     return view('addauthor');
 })->name('addauthor');
 
+Route::get('/registerLanguage', function()
+{
+    return view('insertlanguage');
+})->name('langreg');
+
 
 //go to controller
 Route::post('/loginGet', [Controller::class, 'login']);
@@ -81,6 +87,17 @@ Route::post('/registerAuthor', [author::class, 'addauthor'])->name('authreg');
 
 Route::get('/removeAuthor/{id}', [author::class, 'deleteauthor']);
 
-Route::get('/modifyauthors/{id}', [author::class, 'passauthor']);
+Route::get('/modifyAuthors/{id}', [author::class, 'passauthor']);
 
 Route::post('/editauthor', [author::class, 'editauthor'])->name('editauth');
+
+Route::get('/languages', [language::class, 'displaylanguages'])->name('lang');
+
+Route::post('/getRegisterLanguages', [language::class, 'addLanguage'])->name('getlangreg');
+
+Route::get('/deleteLanguage/{id}', [language::class, 'deleteLang']);
+
+Route::get('/modifyLanguage/{id}', [language::class, 'passlang']);
+
+Route::post('/editlanguage', [language::class, 'editlang'])->name('editlang');
+
