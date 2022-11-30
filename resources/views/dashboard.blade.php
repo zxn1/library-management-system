@@ -144,7 +144,7 @@
           <ul class="subList subList--hidden">
             <a href="{{route('authors')}}"><li class="subList__item">Pengarang</li></a>
             <a href="{{route('lang')}}"><li class="subList__item">Bahasa</li></a>
-            <a href=""><li class="subList__item">Kategori</li></a>
+            <a href="{{route('category')}}"><li class="subList__item">Kategori</li></a>
             <a href="{{route('bkreg')}}"><li class="subList__item">Buku</li></a>
             <li class="subList__item">soon..</li>
           </ul>

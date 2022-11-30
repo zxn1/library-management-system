@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\author;
+use App\Http\Controllers\categoryController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\language;
+use App\Models\category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,6 +75,11 @@ Route::get('/registerLanguage', function()
     return view('insertlanguage');
 })->name('langreg');
 
+Route::get('/addCategory', function()
+{
+    return view('addCategory');
+})->name('categoryadd');
+
 
 //go to controller
 Route::post('/loginGet', [Controller::class, 'login']);
@@ -95,9 +102,19 @@ Route::get('/languages', [language::class, 'displaylanguages'])->name('lang');
 
 Route::post('/getRegisterLanguages', [language::class, 'addLanguage'])->name('getlangreg');
 
+Route::post('/getRegisterCategory', [categoryController::class, 'addCategory'])->name('getCateReg');
+
 Route::get('/deleteLanguage/{id}', [language::class, 'deleteLang']);
 
 Route::get('/modifyLanguage/{id}', [language::class, 'passlang']);
 
 Route::post('/editlanguage', [language::class, 'editlang'])->name('editlang');
+
+Route::get('/category', [categoryController::class, 'displaycategory'])->name('category');
+
+Route::get('/deleteCategory/{id}', [categoryController::class, 'deleteCategory']);
+
+Route::get('/modifyCategory/{id}', [categoryController::class, 'passcategory']);
+
+Route::post('/editCategory', [categoryController::class, 'editcategory'])->name('editcate');
 
