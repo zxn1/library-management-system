@@ -49,7 +49,8 @@
                     <thead class="lighten-2" style="background-color :#428bca; color : white; border-radius: 3px;">
                         <tr>
                         <th scope="col">Bil</th>
-                        <th scope="col" style="width : 70%;">Jenis Bahasa</th>
+                        <th scope="col" style="width : 60%;">Jenis Bahasa</th>
+                        <th scope="col">Jumlah Buku</th>
                         <th scope="col">Modify</th>
                         </tr>
                     </thead>
@@ -59,6 +60,7 @@
                         <tr>
                         <th scope="row">{{ $key++ }}</th>
                         <td>{{ $lang->type_lang }}</td>
+                        <td>BELOM</td>
                         <td>
                             <a href="/modifyLanguage/{{ $lang->id }}">
                             <button type="button" class="btn btn-success" style="border-radius : 100%; height : 35px; width : 35px;">
