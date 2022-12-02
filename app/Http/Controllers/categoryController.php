@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\authors;
+use App\Models\books;
 use Illuminate\Http\Request;
 use App\Models\category;
+use App\Models\languages;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -87,4 +90,57 @@ class categoryController extends Controller
             return redirect()->back()->with('status', 'Gagal memodifikasi maklumat Kategori Buku.');
         }
     }
+
+    function getCategoryName()
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            $categ = category::select('category_name', 'id')->get();
+            $lang = languages::select('id', 'type_lang')->get();
+            $count = 0;
+            if(books::count() >= 1)
+            {
+                $count = books::latest()->first()->id;
+            }
+            /*$categ = category::where('category_name', 'LIKE', '%' . $request->search . '%')->select('category_name')->limit('4')->get();
+            $array = [];
+
+            for($i = 0; $i < count($categ); $i++)
+            {
+                array_push($array, ''. $categ[$i]->category_name);
+            }
+
+            return $array;*/
+            return view('bookregister', ['list_category' => $categ, 'list_language' => $lang, 'booklastid' => $count]);
+        }
+    }
+
+    function getAuthorName(Request $request)
+    {
+        $author = authors::where('name', 'LIKE', '%' . $request->search . '%')->select('name')->limit('4')->get();
+        $array = [];
+
+        for($i = 0; $i < count($author); $i++)
+        {
+            array_push($array, ''. $author[$i]->name);
+        }
+
+        return $array;
+    }
+
+    /*
+    function getLangName(Request $request)
+    {
+        $lang = languages::where('type_lang', 'LIKE', '%' . $request->search . '%')->select('type_lang')->limit('4')->get();
+        $array = [];
+
+        for($i = 0; $i < count($lang); $i++)
+        {
+            array_push($array, ''. $lang[$i]->type_lang);
+        }
+
+        return $array;
+    }*/
 }

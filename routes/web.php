@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\author;
+use App\Http\Controllers\bookController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\language;
@@ -56,14 +57,18 @@ Route::get('/register', function(){
     }
 })->name('register');
 
-Route::get('/bookregister', function(){
+/*Route::get('/bookregister', function(){
     if(!Auth::check())
     {
         return redirect()->route('login');
     } else {
         return view('bookregister');
     }
-})->name('bkreg');
+})->name('bkreg');*/
+
+Route::get('/bookregister', [categoryController::class, 'getCategoryName'])->name('bkreg');
+
+Route::post('/getBookRegister', [bookController::class, 'getRegister'])->name('databookreg');
 
 Route::get('/addauthors', function()
 {
@@ -118,3 +123,16 @@ Route::get('/modifyCategory/{id}', [categoryController::class, 'passcategory']);
 
 Route::post('/editCategory', [categoryController::class, 'editcategory'])->name('editcate');
 
+Route::get('/booklist', [bookController::class, 'displaybooks'])->name('bklst');
+
+Route::get('/categoryquery/{search}', [categoryController::class, 'getCategoryName']);
+
+Route::get('/authorquery/{search}', [categoryController::class, 'getAuthorName']);
+
+Route::get('/languagequery/{search}', [categoryController::class, 'getLangName']);
+
+Route::get('/removeBook/{id}', [bookController::class, 'removeBook']);
+
+Route::get('/modifybooks/{id}', [bookController::class, 'modifyBookdisplay']);
+
+Route::post('/getModifybooksDetails', [bookController::class, 'modifyBooks'])->name('modifBook');

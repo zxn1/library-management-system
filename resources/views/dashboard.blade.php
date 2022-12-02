@@ -24,6 +24,7 @@
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('/resource/dash.style.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <style>
         /* width */
         ::-webkit-scrollbar {
@@ -145,7 +146,7 @@
             <a href="{{route('authors')}}"><li class="subList__item">Pengarang</li></a>
             <a href="{{route('lang')}}"><li class="subList__item">Bahasa</li></a>
             <a href="{{route('category')}}"><li class="subList__item">Kategori</li></a>
-            <a href="{{route('bkreg')}}"><li class="subList__item">Buku</li></a>
+            <a href="{{route('bklst')}}"><li class="subList__item">Buku</li></a>
             <li class="subList__item">soon..</li>
           </ul>
         </li>

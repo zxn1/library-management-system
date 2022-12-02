@@ -109,7 +109,7 @@ class Controller extends BaseController
 
             auth()->login($user);
 
-            return redirect()->to('/dash');
+            return redirect()->route('dash');
         }
     }
 

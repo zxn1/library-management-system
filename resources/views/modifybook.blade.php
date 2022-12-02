@@ -73,7 +73,7 @@ input[type=submit] {
                 </svg>
             </button>
             </a>
-            Borang pendaftaran buku baru</h5>
+            Menyunting maklumat buku</h5>
         </div>
 
         <div class="row">
@@ -83,7 +83,11 @@ input[type=submit] {
                     <p style="color :dimgray; font-size : 14px;">Kulit buku :</p>
                     <center>
                         <span id="genbarcode">
+                            @if( $data->cover_image != null)
+                            <img src="/Image/{{$data->cover_image}}" class="img-fluid" alt="Wild Landscape" />
+                            @else
                             <img src="/src/img/no_cover.jpg" class="img-fluid" alt="Wild Landscape" />
+                            @endif
                         </span>
                     </center>
                 </div>
@@ -100,9 +104,13 @@ input[type=submit] {
         </div>
         @endif
 
-        <form style="margin : 40px;" action="{{route('databookreg')}}" method="POST" enctype="multipart/form-data">
+        <form style="margin : 40px;" action="{{route('modifBook')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <h4 style="margin-top : 40px; margin-bottom : 23px;">Maklumat Buku</h4>
+            <h4 style="margin-top : 40px; margin-bottom : 23px;">Sunting Maklumat Buku</h4>
+
+            <!--<input type="text" name="id" value="{{ $data->id }}" readonly="readonly"/>-->
+            <span style="color : #8a8888;">&nbsp;&nbsp;id</span>
+            <input type="text" class="form-control" name="id" placeholder="ID" value="{{ $data->id }}"  readonly="readonly" style="width : 100px; margin-bottom : 40px;">
 
             <div class="col-lg-4 mb-6" style="position : relative; left : -10px;">
                 <label for="formFileSm" class="form-label">Gambar Kulit Buku (*optional)</label>
@@ -113,11 +121,11 @@ input[type=submit] {
 
                 <div class="form-group col-md-4">
                 <label for="identiti">Identiti Buku</label>
-                <input type="text" class="form-control" id="identiti" name="identiti" placeholder="Nombor Identity Buku" readonly="readonly">
+                <input type="text" class="form-control" id="identiti" name="identiti" placeholder="Nombor Identity Buku" value="{{$data->acquisition}}" readonly="readonly">
                 </div>
                 <div class="form-group col-md-8">
                 <label for="tajuk">Tajuk buku</label>
-                <input type="text" name="booktitle" class="form-control" id="tajukbuku" placeholder="Tajuk buku">
+                <input type="text" name="booktitle" class="form-control" id="tajukbuku" value="{{$data->title}}" placeholder="Tajuk buku">
                 </div>
             </div>
 
@@ -125,14 +133,14 @@ input[type=submit] {
                 <div class="form-group col-md-4">
                     <div class="form-group">
                         <label for="rack">Nombor Rak Buku</label>
-                        <input type="number" name="rack" min="0" onkeyup="partOne()" max="9999" class="form-control" id="rack" placeholder="503">
+                        <input type="number" name="rack" min="0" onkeyup="partOne()" max="9999" class="form-control" value="{{$data->rack_number}}" id="rack" placeholder="503">
                     </div>
                 </div>
 
                 <div class="form-group col-md-8">
                     <div class="form-group">
                         <label for="inputAddress2">Penerbit</label>
-                        <input type="text" class="form-control" name="penerbit" id="penerbit" placeholder="Pusat Penerbit">
+                        <input type="text" class="form-control" name="penerbit" id="penerbit" value="{{$data->publisher}}" placeholder="Pusat Penerbit">
                     </div>
                 </div>
             </div>
@@ -145,7 +153,11 @@ input[type=submit] {
                     <select class="form-select" onchange="partThree()" id="categoryval" name="categoryval" aria-label="Default select example">
                         <option selected disabled>Sila pilih kategori</option>
                         @forelse ($list_category as $list)
-                        <option value="{{$list->id}}">{{$list->category_name}}</option>
+                            @if($list->id == $data->categ_id)
+                            <option value="{{$list->id}}" selected>{{$list->category_name}}</option>
+                            @else
+                            <option value="{{$list->id}}">{{$list->category_name}}</option>
+                            @endif
                         @empty
                         <option disabled>Tiada kategori dijumpai.</option>
                         @endforelse
@@ -164,7 +176,11 @@ input[type=submit] {
                     <select class="form-select" name="languageval" onchange="partTwo()" id="languageval" aria-label="Default select example">
                         <option selected disabled>Sila pilih bahasa</option>
                         @forelse ($list_language as $list)
-                        <option value="{{$list->id}}">{{$list->type_lang}}</option>
+                            @if($list->id == $data->lang_id)
+                            <option value="{{$list->id}}" selected>{{$list->type_lang}}</option>
+                            @else
+                            <option value="{{$list->id}}">{{$list->type_lang}}</option>
+                            @endif
                         @empty
                         <option disabled>Tiada bahasa dijumpai.</option>
                         @endforelse
@@ -180,7 +196,7 @@ input[type=submit] {
                     <div>
                     <label for="inputAddress2">Pengarang</label>
                     <div class="autocomplete" style="width: 100%;">
-                        <input id="myInput2" type="text" onchange="keeptrackAuthor()" name="pengarang" placeholder="Sila isikan nama pengarang" class="form-control">
+                        <input id="myInput2" type="text" onchange="keeptrackAuthor()" value="{{$data->authors->name}}" name="pengarang" placeholder="Sila isikan nama pengarang" class="form-control">
                     </div>
                     </div>
                 </div>
@@ -191,14 +207,14 @@ input[type=submit] {
                 <div class="form-group col-md-4">
                     <div class="form-group" style="border-style : solid; border-width : 1px; border-color : #cfcecc; border-radius : 5px;">
                         <label for="terbit" style="margin-left : 10px;">Tahun Terbit</label>
-                        <input type="date" id="date" name="year_publish">
+                        <input type="date" id="date" name="year_publish" value="{{$data->year_publish}}">
                     </div>
                 </div>
 
                 <div class="form-group col-md-4">
                     <div class="form-group" style="border-style : solid; border-width : 1px; border-color : #cfcecc; border-radius : 5px;">
                     <label for="perolehan" style="margin-left : 10px; font-size : 12px;">Tahun Perolehan</label>
-                        <input type="date" id="date" name="year_acquisition">
+                        <input type="date" id="date" name="year_acquisition" value="{{$data->year_acquisition}}">
                     </div>
                 </div>
             </div>
@@ -206,7 +222,7 @@ input[type=submit] {
             
             <div class="form-group">
             </div>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary">Sunting</button>
             </form>
     </div>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
@@ -350,19 +366,6 @@ input[type=submit] {
 
         }
 
-        function idBuku()
-        {
-            let id = parseInt('{{ $booklastid }}') + 1;
-            let zeros = '';
-            for(let i = String(id).length; i <= 3; i++ )
-            {
-                zeros += '0';
-            }
-
-            return (zeros + String(id));
-            //console.log(parseInt(id) + 1);
-        }
-
         function partTwo()
         {
             let langnumber = document.getElementById('languageval').value;
@@ -378,7 +381,7 @@ input[type=submit] {
 
             if(perolehan.length != 15)
             {
-                document.getElementById('identiti').value = '0000-' + idBuku() + '-00-' + langnumber;
+                document.getElementById('identiti').value = '0000-' + '00' + '-00-' + langnumber;
             } else {
                 let selebih = perolehan.substring(0, 13);
                 document.getElementById('identiti').value = selebih + langnumber;
@@ -401,7 +404,7 @@ input[type=submit] {
 
             if(perolehan.length != 15)
             {
-                document.getElementById('identiti').value = '0000-' + idBuku() + '-' + catenumber + '-00';
+                document.getElementById('identiti').value = '0000-' + '00' + '-' + catenumber + '-00';
             } else {
                 let selebih = perolehan.substring(0, 10);
                 let selebih2 = perolehan.substring(13, 15);
@@ -442,48 +445,6 @@ input[type=submit] {
             //console.log(racknumber + '  -  ' + perolehan);
         }
 
-        /*function keeptrackLanguage()
-        {
-            const detik = setInterval(()=>{
-                var LangVal = document.getElementById("myInput3").value;
-                    choosenBahasa = LangVal;
-                    //console.log(choosenBahasa); 
-                clearInterval(detik);
-            }, 500);
-
-        }
-
-        $('#myInput1').on('keyup',function(){
-        $value=$(this).val();
-        choosenKategori = $value;
-        //console.log(choosenInstructors);
-        //alert($value);
-        if ($value.length == 0) {
-            //alert('nothing');
-            return;
-        } else {
-            //console.log($value);
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    //document.getElementById("txtHint").innerHTML = this.responseText;
-                    kategori = this.responseText;
-                    kategori = kategori.replace(/[\[\]"]/g, '');
-                    kategori = kategori.split(",");
-                    //instructors.push('test');
-                    
-                    //instructros = instructors.substring();
-                    //console.log(choosenKategori);
-                    autocomplete(document.getElementById("myInput1"), kategori);
-                    //console.log(kategori);
-                }
-            };
-            xmlhttp.open("GET", "/categoryquery/" + $value, true);
-            xmlhttp.send();
-        }
-        //choosenInstructors = $value;
-        //console.log(choosenInstructors);
-    }); */
 
     $('#formFileSm').on('change',function ()
     {
@@ -523,39 +484,6 @@ input[type=submit] {
         //choosenInstructors = $value;
         //console.log(choosenInstructors);
     });
-
-    /*
-    $('#myInput3').on('keyup',function(){
-        $value=$(this).val();
-        choosenBahasa = $value;
-        //console.log(choosenBahasa);
-        //alert($value);
-        if ($value.length == 0) {
-            //alert('nothing');
-            return;
-        } else {
-            //console.log($value);
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    //document.getElementById("txtHint").innerHTML = this.responseText;
-                    bahasa = this.responseText;
-                    bahasa = bahasa.replace(/[\[\]"]/g, '');
-                    bahasa = bahasa.split(",");
-                    //instructors.push('test');
-                    
-                    //instructros = instructors.substring();
-                    //console.log(choosenBahasa);
-                    autocomplete(document.getElementById("myInput3"), bahasa);
-                    //console.log(bahasa);
-                }
-            };
-            xmlhttp.open("GET", "/languagequery/" + $value, true);
-            xmlhttp.send();
-        }
-        //choosenInstructors = $value;
-        //console.log(choosenInstructors);
-    });*/
 
     </script>
 @stop

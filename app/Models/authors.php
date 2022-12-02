@@ -12,4 +12,9 @@ class authors extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function books()
+    {
+        return $this->belongsTo(books::class, 'author_id');
+    }
 }

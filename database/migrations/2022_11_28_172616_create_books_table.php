@@ -11,16 +11,31 @@ class CreateBooksTable extends Migration
      *
      * @return void
      */
+
+     /*
+        'acquisition',
+        'title',
+        'publisher',
+        'year_acquisition',
+        'year_publish',
+        'lang_id',
+        'categ_id',
+        'author_id'
+     */
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('acquisition');
             $table->string('title');
-            $table->string('author');
+            $table->bigInteger('rack_number');
+            $table->string('cover_image')->nullable();
+            $table->string('publisher');
             $table->date('year_acquisition');
-            $table->string('language_type');
-            $table->string('category'); //ni nanti ganti ngn foreign key - foreign dgn table category
+            $table->date('year_publish');
+            $table->bigInteger('lang_id')->unsigned();
+            $table->bigInteger('categ_id')->unsigned();
+            $table->bigInteger('author_id')->unsigned();
             $table->timestamps();
         });
     }
