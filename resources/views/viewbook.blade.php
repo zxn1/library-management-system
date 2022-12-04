@@ -1,7 +1,7 @@
 @extends('dashboard')
 @section('content')
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <div style="border-style : solid; border-width : 1px; border-color :#428bca; margin : 30px; border-radius : 13px; background : radial-gradient(ellipse at center, #e5e5e5 0%, #ffffff 100%);">
+    <div style="padding-bottom : 15px; border-style : solid; border-width : 1px; border-color :#428bca; margin : 30px; border-radius : 13px; background : radial-gradient(ellipse at center, #e5e5e5 0%, #ffffff 100%);">
         <div style="height : 60px; width : 100%; background-color : #428bca;border-top-left-radius: 13px; border-top-right-radius: 13px;">
             <h5 style="font-family : Montserrat; color : white; position : relative; top : 12px; left : 20px;">
             <a href="{{route('bklst')}}">
@@ -34,11 +34,42 @@
         </div>
         @endif
 
+        <!--<button class="generate-pdf" onclick="printBarcode()">
+            Generate PDF (Button for generating pdf)
+        </button>-->
+
+        <button style="margin-top : 10px;" type="button" onclick="printBarcode()" class="btn btn-dark">
+        <svg style="position : relative; top : -1px; margin-right : 2px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+        <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+        <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+        </svg>
+        Print Barcode</button>
+
         <center>
         <div style="margin-top : 30px; border-style : solid; border-width : 1px; border-color : #b5b5b5; width : 480px; border-radius : 8px; padding-bottom : 15px;">
             <div style="padding-bottom : 15px; margin-top : 15px;">
-                <p style="margin-left : -290px; color : #706e6e;">Barkod Buku</p>
-                {!! DNS1D::getBarcodeSVG($data->acquisition, 'C39', 1.4, 33) !!}
+
+                <div id="dPDF">
+                    <p style="margin-left : -290px; color : #706e6e;">Barkod Buku</p>
+                    {!! DNS1D::getBarcodeSVG($data->acquisition, 'C39', 1.4, 33) !!}
+                    <table>
+                        <tr>
+                            <td>
+                                <p style="font-size : 12px; margin-top : 10px;">No. Buku : {{$data->id}} &nbsp;&nbsp;&nbsp;</p>
+                            </td>
+                            <td>
+                                <p style="font-size : 12px; margin-top : 10px;">{{$data->lang_id}} : {{$data->languages->type_lang}}&nbsp;&nbsp;&nbsp;</p>
+                            </td>
+                            <td>
+                                <p style="font-size : 12px; margin-top : 10px;">{{$data->categ_id}} : {{$data->category->category_name}}&nbsp;&nbsp;&nbsp;</p>
+                            </td>
+                            <td>
+                                <p style="font-size : 12px; margin-top : 10px;">Rak No. : {{$data->rack_number}}&nbsp;&nbsp;&nbsp;</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
             </div>
 
             
@@ -154,5 +185,30 @@
             //console.log(input);
             document.getElementById('genbarcode').innerHTML = "{!! DNS1D::getBarcodeSVG(" + input + " , 'C39') !!}";
         } */
+
+    /*function downloadPDF() {
+        const element = document.getElementById("dPDF");
+
+        var opt = {
+            margin: 0.5,
+            filename: 'your_filename.pdf',
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 4, logging: true },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        window.print(element);
+        html2pdf().set(opt).from(element).save();
+    }*/
+
+    function printBarcode()
+    {
+        var prtContent = document.getElementById("dPDF");
+        var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+    }
     </script>
 @stop

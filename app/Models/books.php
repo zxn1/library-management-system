@@ -32,4 +32,9 @@ class books extends Model
     {
         return $this->hasOne(languages::class, 'id', 'lang_id');
     }
+
+    public function category()
+    {
+        return $this->hasOne(category::class, 'id', 'categ_id');
+    }
 }

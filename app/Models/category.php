@@ -12,4 +12,9 @@ class category extends Model
     protected $fillable = [
         'category_name',
     ];
+
+    public function books()
+    {
+        return $this->belongsTo(books::class, 'categ_id');
+    }
 }
