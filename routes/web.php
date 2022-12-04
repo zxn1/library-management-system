@@ -136,3 +136,5 @@ Route::get('/removeBook/{id}', [bookController::class, 'removeBook']);
 Route::get('/modifybooks/{id}', [bookController::class, 'modifyBookdisplay']);
 
 Route::post('/getModifybooksDetails', [bookController::class, 'modifyBooks'])->name('modifBook');
+
+Route::get('/viewBooks/{id}', [bookController::class, 'viewBook'])->name('viewbks');

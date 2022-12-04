@@ -55,6 +55,8 @@
                         <th scope="col">Nama Buku</th>
                         <th scope="col">Pengarang</th>
                         <th scope="col">Penerbit</th>
+                        <th scope="col">Bahasa</th>
+                        <th scope="col">Tahun Terbit</th>
                         <th scope="col">Tahun Perolehan</th>
                         <th scope="col">Modify</th>
                         </tr>
@@ -74,6 +76,8 @@
                         <td>{{ $books->title }}</td>
                         <td>{{ $books->authors->name }}</td>
                         <td>{{ $books->publisher }}</td>
+                        <td>{{ $books->languages->type_lang }}</td>
+                        <td>{{ $books->year_publish }}</td>
                         <td>{{ $books->year_acquisition }}</td>
                         <td>
 

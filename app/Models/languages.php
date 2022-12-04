@@ -12,4 +12,9 @@ class languages extends Model
     protected $fillable = [
         'type_lang'
     ];
+
+    public function books()
+    {
+        return $this->belongsTo(books::class, 'lang_id');
+    }
 }

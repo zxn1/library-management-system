@@ -27,4 +27,9 @@ class books extends Model
     {
         return $this->hasOne(authors::class, 'id', 'author_id');
     }
+
+    public function languages()
+    {
+        return $this->hasOne(languages::class, 'id', 'lang_id');
+    }
 }

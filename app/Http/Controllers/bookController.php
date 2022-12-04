@@ -9,6 +9,7 @@ use App\Models\category;
 use App\Models\languages;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Session;
 
 class bookController extends Controller
 {
@@ -74,7 +75,8 @@ class bookController extends Controller
             }
             if($book->save())
             {
-                return redirect()->route('bklst')->with('success', 'buku berjaya didaftarkan.');
+                Session::flash('success', "buku berjaya didaftarkan.");
+                return redirect()->route('viewbks', $book->id)->with(['success' => 'buku berjaya didaftarkan.']);
             } else {
                 return redirect()->back()->with('error', 'buku gagal didaftarkan.');
             }
@@ -155,5 +157,11 @@ class bookController extends Controller
                 return redirect()->back()->with('error', 'buku gagal didaftarkan.');
             }
         }
+    }
+
+    function viewBook(Request $request)
+    {
+        $book = books::where('id', $request->id)->first();
+        return view('viewbook', ['data' => $book]);
     }
 }
