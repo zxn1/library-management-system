@@ -166,3 +166,7 @@ Route::post('/registerStudent', [studentController::class, 'registerStudent'])->
 Route::get('/students', [studentController::class, 'displaystudents'])->name('stdnts');
 
 Route::get('/deleteStudent/{unique_id}', [studentController::class, 'deleteStudent']);
+
+Route::post('/searchStudent', [studentController::class, 'displaystudentsbysearch'])->name('srchstud');
+
+Route::post('/studentUnique', [studentController::class, 'studentsbysearchunique'])->name('uniqueStud');

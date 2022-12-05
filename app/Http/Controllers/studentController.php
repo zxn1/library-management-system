@@ -22,6 +22,30 @@ class studentController extends Controller
         }
     }
 
+    function displaystudentsbysearch(Request $request)
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            $stud = students::where('fullname', 'LIKE', '%'. $request->studname . '%')->paginate(4);
+            Session::flash('status', "Rekod pelajar yang dijumpai menerusi carian nama adalah " . count($stud) . ' orang pelajar.');
+            return view('student', ['data' => $stud]);
+        }
+    }
+
+    function studentsbysearchunique(Request $request)
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            $stud = students::where('unique_id', 'LIKE', '%'. $request->unique_id . '%')->paginate(4);
+            Session::flash('status', "Rekod pelajar yang dijumpai menerusi carian unique id adalah " . count($stud) . ' orang pelajar.');
+            return view('student', ['data' => $stud]);
+        }
+    }
+
     function registerStudent(Request $request)
     {
         if(!Auth::check())
