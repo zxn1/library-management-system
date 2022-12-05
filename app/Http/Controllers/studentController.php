@@ -83,4 +83,14 @@ class studentController extends Controller
             }
         }
     }
+
+    function deleteStudent(Request $request)
+    {
+        if(students::where('unique_id', $request->unique_id)->delete())
+        {
+            return redirect()->back()->with('status', 'Berjaya memadam rekod pelajar!');
+        } else {
+            return redirect()->back()->with('fails', 'Gagal memadam rekod pelajar.');
+        }
+    }
 }

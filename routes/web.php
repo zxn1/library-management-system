@@ -164,3 +164,5 @@ Route::post('/searchbyyearacquisition', [bookController::class, 'searchbookbyyea
 Route::post('/registerStudent', [studentController::class, 'registerStudent'])->name('regstud');
 
 Route::get('/students', [studentController::class, 'displaystudents'])->name('stdnts');
+
+Route::get('/deleteStudent/{unique_id}', [studentController::class, 'deleteStudent']);
