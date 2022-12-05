@@ -73,7 +73,7 @@
   <header class="header">
     <i class="fas fa-bars header__menu"></i>
     <div class="header__search">
-      <!--<input class="header__input" placeholder="Search..." />-->
+      <input class="header__input" placeholder="Pusat Sumber Sekolah" disabled/>
     </div>
     <div class="header__avatar" style="background-image: url('https://d3avoj45mekucs.cloudfront.net/astrogempak/media/aplikasi/aishah_1.jpg');">
       <div class="dropdown">
@@ -113,7 +113,7 @@
     </div>
     <div class="row row--align-v-center row--align-h-center">
       <ul class="navList">
-        <li class="navList__heading">Dokumen<i class="far fa-file-alt"></i></li>
+        <li class="navList__heading">Maklumat Buku<i class="far fa-file-alt"></i></li>
 
           <li>
           <a href="{{route('dash')}}">
@@ -147,10 +147,12 @@
             <a href="{{route('lang')}}"><li class="subList__item">Bahasa</li></a>
             <a href="{{route('category')}}"><li class="subList__item">Kategori</li></a>
             <a href="{{route('bklst')}}"><li class="subList__item">Buku</li></a>
-            <li class="subList__item">soon..</li>
+            <!--<li class="subList__item">soon..</li>-->
           </ul>
         </li>
-        <li>
+
+        
+        <!--<li>
           <div class="navList__subheading row row--align-v-center">
             <span class="navList__subheading-icon">
                 <i class="far fa-angry"></i>
@@ -161,151 +163,50 @@
             <li class="subList__item">current</li>
             <li class="subList__item">archives</li>
           </ul>
+        </li> -->
+
+        <li class="navList__heading">Maklumat Pelajar
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+              <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+            </svg>
+        </span>
+        </li>
+        <li>
+          <a href="{{route('dash')}}">
+          <div class="ownli">
+            <span class="navList__subheading-icon" style="padding-top : 15px; margin-left : 27px;">
+                <span style="position : relative; top : 3px; margin-right : 10px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                  </svg>
+              </span>
+            </span>
+            <span class="navList__subheading-title" style="position : relative; top : -16px; margin-left : 44px;">Pelajar</span>
+          </div>
+          </a>
+          
         </li>
 
-        <li class="navList__heading">messages<i class="far fa-envelope"></i></li>
         <li>
           <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-envelope"></i></span>
-            <span class="navList__subheading-title">inbox</span>
+            <span class="navList__subheading-icon">
+                <span style="position : relative; top : 10px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                  </svg>
+                </span>
+            </span>
+            <span class="navList__subheading-title" style="position : relative; top : -10px;">Test</span>
           </div>
           <ul class="subList subList--hidden">
-            <li class="subList__item">primary</li>
-            <li class="subList__item">social</li>
-            <li class="subList__item">promotional</li>
+            <a href="{{route('authors')}}"><li class="subList__item">Pengarang</li></a>
+            <a href="{{route('lang')}}"><li class="subList__item">Bahasa</li></a>
+            <a href="{{route('category')}}"><li class="subList__item">Kategori</li></a>
+            <a href="{{route('bklst')}}"><li class="subList__item">Buku</li></a>
+            <!--<li class="subList__item">soon..</li>-->
           </ul>
         </li>
-        <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-eye"></i></span>
-            <span class="navList__subheading-title">unread</span>
-          </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">primary</li>
-            <li class="subList__item">social</li>
-            <li class="subList__item">promotional</li>
-          </ul>
-        </li>
-         <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-book-open"></i></span>
-            <span class="navList__subheading-title">archives</span>
-          </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">primary</li>
-            <li class="subList__item">social</li>
-            <li class="subList__item">promotional</li>
-          </ul>
-        </li>
-
-        <li class="navList__heading">photo album<i class="far fa-image"></i></li>
-        <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-mountain"></i></span>
-            <span class="navList__subheading-title">vacation</span>
-          </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">cambodia</li>
-            <li class="subList__item">new york</li>
-          </ul>
-        </li>
-        <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-wine-glass-alt"></i></span>
-            <span class="navList__subheading-title">anniversary</span>
-          </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">dive trip</li>
-            <li class="subList__item">hikathon</li>
-            <li class="subList__item">buffalo river</li>
-          </ul>
-        </li>
-        <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-graduation-cap"></i></span>
-            <span class="navList__subheading-title">university</span>
-          </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">wild horse saloon</li>
-            <li class="subList__item">service corps</li>
-            <li class="subList__item">graduation</li>
-            <li class="subList__item">internships</li>
-          </ul>
-        </li>
-
-        <li class="navList__heading">statistics<i class="fas fa-chart-bar"></i></li>
-        <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-credit-card"></i></span>
-            <span class="navList__subheading-title">finances</span>
-          </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">mortgage</li>
-            <li class="subList__item">investments</li>
-            <li class="subList__item">spend log</li>
-            <li class="subList__item">owed</li>
-          </ul>
-        </li>
-        <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-phone"></i></span>
-            <span class="navList__subheading-title">call stats</span>
-          </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">last month</li>
-            <li class="subList__item">bi-weekly</li>
-            <li class="subList__item">yesterday</li>
-            <li class="subList__item">today</li>
-          </ul>
-        </li>
-        <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-plane"></i></span>
-            <span class="navList__subheading-title">trip logs</span>
-          </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">amsterdam</li>
-            <li class="subList__item">buenos aires</li>
-            <li class="subList__item">cambodia</li>
-            <li class="subList__item">greenland</li>
-          </ul>
-        </li>
-        
-        <li class="navList__heading">Events<i class="fas fa-calendar-alt"></i></li>
-        <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-wine-glass-alt"></i></span>
-            <span class="navList__subheading-title">weddings</span>
-          </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">past</li>
-            <li class="subList__item">present</li>
-            <li class="subList__item">future</li>
-          </ul>
-        </li>
-        <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon"><i class="fas fa-school"></i></span>
-            <span class="navList__subheading-title">playdates</span>
-          </div>
-          <ul class="subList subList--hidden">
-            <li class="subList__item">weirdos</li>
-            <li class="subList__item">smarties</li>
-            <li class="subList__item">nerds</li>
-          </ul>
-        </li>
-        <li>
-              <div class="navList__subheading row row--align-v-center">
-                <span class="navList__subheading-icon"><i class="fas fa-users"></i></span>
-                <span class="navList__subheading-title">networking</span>
-              </div>
-              <ul class="subList subList--hidden">
-                <li class="subList__item">tech</li>
-                <li class="subList__item">automotive</li>
-                <li class="subList__item">UX research</li>
-                <li class="subList__item">development</li>
-              </ul>
-            </li>
       </ul>
     </div>
   </aside>
