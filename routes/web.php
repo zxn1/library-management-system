@@ -5,7 +5,9 @@ use App\Http\Controllers\bookController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\language;
+use App\Http\Controllers\studentController;
 use App\Models\category;
+use App\Models\students;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,6 +87,10 @@ Route::get('/addCategory', function()
     return view('addCategory');
 })->name('categoryadd');
 
+Route::get('/registerStudent', function(){
+    return view('registerstudent');
+})->name('regStud');
+
 
 //go to controller
 Route::post('/loginGet', [Controller::class, 'login']);
@@ -154,3 +160,7 @@ Route::post('/searchbyauthor', [bookController::class, 'searchbookbyauthor'])->n
 Route::post('/searchbyyearpublished', [bookController::class, 'searchbookbyyearpublished'])->name('srchbookbypublished');
 
 Route::post('/searchbyyearacquisition', [bookController::class, 'searchbookbyyearacquisition'])->name('srchbookbyacquisition');
+
+Route::post('/registerStudent', [studentController::class, 'registerStudent'])->name('regstud');
+
+Route::get('/students', [studentController::class, 'displaystudents'])->name('stdnts');

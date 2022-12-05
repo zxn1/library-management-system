@@ -66,7 +66,7 @@ class Controller extends BaseController
         
              return view('test', ['data'=>$response]);*/
     }
-
+    
     function register(Request $request)
     {
         /*$this->validate(request(), [

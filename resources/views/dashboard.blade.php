@@ -173,7 +173,7 @@
         </span>
         </li>
         <li>
-          <a href="{{route('dash')}}">
+          <a href="{{route('stdnts')}}">
           <div class="ownli">
             <span class="navList__subheading-icon" style="padding-top : 15px; margin-left : 27px;">
                 <span style="position : relative; top : 3px; margin-right : 10px;">
