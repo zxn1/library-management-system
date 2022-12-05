@@ -170,3 +170,7 @@ Route::get('/deleteStudent/{unique_id}', [studentController::class, 'deleteStude
 Route::post('/searchStudent', [studentController::class, 'displaystudentsbysearch'])->name('srchstud');
 
 Route::post('/studentUnique', [studentController::class, 'studentsbysearchunique'])->name('uniqueStud');
+
+Route::post('/studentModify', [studentController::class, 'getModifyStudent'])->name('modifStud');
+
+Route::get('/modifyStudent/{unique_id}', [studentController::class, 'modifyStudent']);

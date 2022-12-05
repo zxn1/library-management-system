@@ -117,4 +117,52 @@ class studentController extends Controller
             return redirect()->back()->with('fails', 'Gagal memadam rekod pelajar.');
         }
     }
+
+    function modifyStudent(Request $request)
+    {
+        $stud = students::where('unique_id', $request->unique_id)->first();
+        return view('modifystudent', ['data' => $stud]);
+    }
+
+    function getModifyStudent(Request $request)
+    {
+        $validator =  Validator::make($request->all(), [
+            'id' => 'required',
+            'studname' => 'required',
+            'year' => 'required',
+            'streetname' => 'required',
+            'poscode' => 'required',
+            'cityname' => 'required',
+            'statename' => 'required',
+            'dobdate' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'maklumat tidak dilengkapkan.');
+        } else 
+        {
+            //return $request->id;
+            $stud = students::find($request->id);
+            if($request->file('image')){
+                $file= $request->file('image');
+                $filename= date('YmdHi').$file->getClientOriginalName();
+                $file-> move(public_path('Image'), $filename);
+                $stud->profile_image = $filename;
+            }
+            $stud->fullname = $request->studname;
+            $stud->year = $request->year;
+            $stud->street = $request->streetname;
+            $stud->poscode = $request->poscode;
+            $stud->city = $request->cityname;
+            $stud->state = $request->statename;
+            $stud->dob = $request->dobdate;
+            
+            if($stud->save())
+            {
+                return redirect()->back();
+            } else {
+                return redirect()->back()->with('error', 'buku gagal didaftarkan.');
+            }
+        }
+    }
 }
