@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\languages;
+use App\Models\books;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Session;
 
 class language extends Controller
 {
@@ -17,7 +19,36 @@ class language extends Controller
             return redirect()->route('login');
         } else {
             $lang = languages::paginate(5);
-            return view('language', ['data' => $lang]);
+            $arr = [];
+            for($i = 0; $i < count($lang); $i++)
+            {
+                $book = count(books::where('lang_id', $lang[$i]->id)->get());
+                array_push($arr, $book);
+            }
+            //return $arr;
+            return view('language', ['data' => $lang, 'count' => $arr]);
+        }
+    }
+
+    function displaylanguagesbysearch(Request $request)
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            /*
+            $auth = authors::where('name', 'LIKE', '%'. $request->search . '%')->paginate(5);
+            Session::flash('status', "Buku yang dijumpai menerusi carian pengarang adalah " . count($auth) . ' buah buku.');
+            */
+            $lang = languages::where('type_lang', 'LIKE', '%'. $request->search . '%')->paginate(5);
+            $arr = [];
+            for($i = 0; $i < count($lang); $i++)
+            {
+                $book = count(books::where('lang_id', $lang[$i]->id)->get());
+                array_push($arr, $book);
+            }
+            Session::flash('status', "Buku yang dijumpai menerusi carian bahasa adalah " . count($lang) . ' buah buku.');
+            return view('language', ['data' => $lang, 'count' => $arr]);
         }
     }
 

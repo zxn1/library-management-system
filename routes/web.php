@@ -91,6 +91,8 @@ Route::post('/loginGet', [Controller::class, 'login']);
 
 Route::get('/authors', [author::class, 'displayauthors'])->name('authors');
 
+Route::post('/authorssearch', [author::class, 'displayauthorsbysearch'])->name('authorssrch');
+
 Route::post('/getRegister', [Controller::class, 'register']);
 
 Route::get('/logout', [Controller::class, 'logout'])->name('logout');
@@ -105,6 +107,8 @@ Route::post('/editauthor', [author::class, 'editauthor'])->name('editauth');
 
 Route::get('/languages', [language::class, 'displaylanguages'])->name('lang');
 
+Route::post('/languagesSearch', [language::class, 'displaylanguagesbysearch'])->name('langsrch');
+
 Route::post('/getRegisterLanguages', [language::class, 'addLanguage'])->name('getlangreg');
 
 Route::post('/getRegisterCategory', [categoryController::class, 'addCategory'])->name('getCateReg');
@@ -116,6 +120,8 @@ Route::get('/modifyLanguage/{id}', [language::class, 'passlang']);
 Route::post('/editlanguage', [language::class, 'editlang'])->name('editlang');
 
 Route::get('/category', [categoryController::class, 'displaycategory'])->name('category');
+
+Route::post('/categorySearch', [categoryController::class, 'displaycategorybysearch'])->name('categorysrc');
 
 Route::get('/deleteCategory/{id}', [categoryController::class, 'deleteCategory']);
 

@@ -73,7 +73,7 @@
   <header class="header">
     <i class="fas fa-bars header__menu"></i>
     <div class="header__search">
-      <input class="header__input" placeholder="Search..." />
+      <!--<input class="header__input" placeholder="Search..." />-->
     </div>
     <div class="header__avatar" style="background-image: url('https://d3avoj45mekucs.cloudfront.net/astrogempak/media/aplikasi/aishah_1.jpg');">
       <div class="dropdown">

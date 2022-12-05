@@ -9,6 +9,7 @@ use App\Models\category;
 use App\Models\languages;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Session;
 
 class categoryController extends Controller
 {
@@ -20,7 +21,31 @@ class categoryController extends Controller
             return redirect()->route('login');
         } else {
             $category = category::paginate(5);
-            return view('category', ['data' => $category]);
+            $arr = [];
+            for($i = 0; $i < count($category); $i++)
+            {
+                $book = count(books::where('categ_id', $category[$i]->id)->get());
+                array_push($arr, $book);
+            }
+            return view('category', ['data' => $category, 'count' => $arr]);
+        }
+    }
+
+    function displaycategorybysearch(Request $request)
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            $category = category::where('category_name', 'LIKE', '%' . $request->search . '%')->paginate(5);
+            $arr = [];
+            for($i = 0; $i < count($category); $i++)
+            {
+                $book = count(books::where('categ_id', $category[$i]->id)->get());
+                array_push($arr, $book);
+            }
+            Session::flash('status', "Buku yang dijumpai menerusi carian jenis kategori adalah " . count($category) . ' buah buku.');
+            return view('category', ['data' => $category, 'count' => $arr]);
         }
     }
 

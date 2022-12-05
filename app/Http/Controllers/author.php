@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\authors;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Session;
 
 class author extends Controller
 {
@@ -17,6 +18,18 @@ class author extends Controller
             return redirect()->route('login');
         } else {
             $auth = authors::paginate(5);
+            return view('authors', ['data' => $auth]);
+        }
+    }
+
+    function displayauthorsbysearch(Request $request)
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            $auth = authors::where('name', 'LIKE', '%'. $request->search . '%')->paginate(5);
+            Session::flash('status', "Buku yang dijumpai menerusi carian pengarang adalah " . count($auth) . ' buah buku.');
             return view('authors', ['data' => $auth]);
         }
     }
