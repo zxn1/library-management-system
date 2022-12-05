@@ -25,6 +25,52 @@ class bookController extends Controller
         }
     }
 
+    function searchbookbytitle(Request $request)
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            //'name', 'LIKE', '%' . $request->search . '%'
+            $book = books::where('title', 'LIKE', '%'. $request->booktitle .'%')->paginate(4);
+            return view('booklist', ['data' => $book]);
+        }
+    }
+
+    function searchbookbypublisher(Request $request)
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            //'name', 'LIKE', '%' . $request->search . '%'
+            $book = books::where('publisher', 'LIKE', '%'. $request->publisher .'%')->paginate(4);
+            return view('booklist', ['data' => $book]);
+        }
+    }
+
+    function searchbookbyauthor(Request $request)
+    {
+        /*
+        $posts = ModelA::whereHas('modelb', function ($query) {
+         $query->where('title', 'like', 'foo%');
+        })->get();
+        */
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            $authorname = $request->author;
+            //'name', 'LIKE', '%' . $request->search . '%'
+            /*$book = books::where('author_id', '%'. $request->publisher .'%')->paginate(4);
+            return view('booklist', ['data' => $book]);*/
+            $book = books::whereHas('authors', function ($query) use($authorname) {
+                $query->where('name', 'LIKE', '%'. $authorname . '%');
+            })->paginate(4);
+            return view('booklist', ['data' => $book]);
+        }
+    }
+
     function getRegister(Request $request)
     {
         //return authors::where('name', $request->pengarang)->select('id')->first();

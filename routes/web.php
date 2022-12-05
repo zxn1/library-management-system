@@ -138,3 +138,9 @@ Route::get('/modifybooks/{id}', [bookController::class, 'modifyBookdisplay']);
 Route::post('/getModifybooksDetails', [bookController::class, 'modifyBooks'])->name('modifBook');
 
 Route::get('/viewBooks/{id}', [bookController::class, 'viewBook'])->name('viewbks');
+
+Route::post('/searchbytitle', [bookController::class, 'searchbookbytitle'])->name('searchbooktitle');
+
+Route::post('/searchbypublisher', [bookController::class, 'searchbookbypublisher'])->name('searchbookpublish');
+
+Route::post('/searchbyauthor', [bookController::class, 'searchbookbyauthor'])->name('searchbookauth');
