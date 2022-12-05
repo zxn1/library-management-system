@@ -33,6 +33,7 @@ class bookController extends Controller
         } else {
             //'name', 'LIKE', '%' . $request->search . '%'
             $book = books::where('title', 'LIKE', '%'. $request->booktitle .'%')->paginate(4);
+            Session::flash('status', "Buku yang dijumpai menerusi carian tajuk buku adalah " . count($book) . ' buah buku.');
             return view('booklist', ['data' => $book]);
         }
     }
@@ -45,6 +46,7 @@ class bookController extends Controller
         } else {
             //'name', 'LIKE', '%' . $request->search . '%'
             $book = books::where('publisher', 'LIKE', '%'. $request->publisher .'%')->paginate(4);
+            Session::flash('status', "Buku yang dijumpai menerusi carian penerbit buku adalah " . count($book) . ' buah buku.');
             return view('booklist', ['data' => $book]);
         }
     }
@@ -62,6 +64,7 @@ class bookController extends Controller
         } else {
             //'name', 'LIKE', '%' . $request->search . '%'
             $book = books::whereBetween('year_publish', array($request->start_year_publish, $request->end_year_publish))->paginate(4);
+            Session::flash('status', "Buku yang dijumpai menerusi carian tahun buku diterbitkan adalah " . count($book) . ' buah buku.');
             return view('booklist', ['data' => $book]);
         }
     }
@@ -79,6 +82,7 @@ class bookController extends Controller
         } else {
             //'name', 'LIKE', '%' . $request->search . '%'
             $book = books::whereBetween('year_acquisition', array($request->start_year_acquisition, $request->end_year_acquisition))->paginate(4);
+            Session::flash('status', "Buku yang dijumpai menerusi carian tahun perolehan buku adalah " . count($book) . ' buah buku.');
             return view('booklist', ['data' => $book]);
         }
     }
@@ -101,6 +105,7 @@ class bookController extends Controller
             $book = books::whereHas('authors', function ($query) use($authorname) {
                 $query->where('name', 'LIKE', '%'. $authorname . '%');
             })->paginate(4);
+            Session::flash('status', "Buku yang dijumpai menerusi carian pengarang buku adalah " . count($book) . ' buah buku.');
             return view('booklist', ['data' => $book]);
         }
     }
