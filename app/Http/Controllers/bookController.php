@@ -49,6 +49,40 @@ class bookController extends Controller
         }
     }
 
+    function searchbookbyyearpublished(Request $request)
+    {
+        /*
+        $dates = DatePrice::where('tour_id','=',$request->product_id)
+         ->whereBetween('date', array($request->from_date, $request->to_date))
+         ->get();
+        */
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            //'name', 'LIKE', '%' . $request->search . '%'
+            $book = books::whereBetween('year_publish', array($request->start_year_publish, $request->end_year_publish))->paginate(4);
+            return view('booklist', ['data' => $book]);
+        }
+    }
+
+    function searchbookbyyearacquisition(Request $request)
+    {
+        /*
+        $dates = DatePrice::where('tour_id','=',$request->product_id)
+         ->whereBetween('date', array($request->from_date, $request->to_date))
+         ->get();
+        */
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            //'name', 'LIKE', '%' . $request->search . '%'
+            $book = books::whereBetween('year_acquisition', array($request->start_year_acquisition, $request->end_year_acquisition))->paginate(4);
+            return view('booklist', ['data' => $book]);
+        }
+    }
+
     function searchbookbyauthor(Request $request)
     {
         /*

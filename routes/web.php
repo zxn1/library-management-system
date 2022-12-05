@@ -144,3 +144,7 @@ Route::post('/searchbytitle', [bookController::class, 'searchbookbytitle'])->nam
 Route::post('/searchbypublisher', [bookController::class, 'searchbookbypublisher'])->name('searchbookpublish');
 
 Route::post('/searchbyauthor', [bookController::class, 'searchbookbyauthor'])->name('searchbookauth');
+
+Route::post('/searchbyyearpublished', [bookController::class, 'searchbookbyyearpublished'])->name('srchbookbypublished');
+
+Route::post('/searchbyyearacquisition', [bookController::class, 'searchbookbyyearacquisition'])->name('srchbookbyacquisition');
