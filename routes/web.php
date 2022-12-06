@@ -186,3 +186,7 @@ Route::get('/viewStudent/{id}', [studentController::class, 'viewStudent']);
 Route::get('/bookName/{search}', [bookController::class, 'bookQuery']);
 
 Route::post('/bookLoanRegister', [bookController::class, 'getRegBookLoan'])->name('bookloanReg');
+
+Route::get('/deleteBookloan/{id}', [bookController::class, 'deleteBookLoan']);
+
+Route::get('/unavailableBook', [bookController::class, 'searchunavailablebook'])->name('borrowed');

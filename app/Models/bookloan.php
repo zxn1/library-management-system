@@ -20,4 +20,9 @@ class bookloan extends Model
     {
         return $this->hasOne(students::class, 'unique_id', 'unique_stud_id');
     }
+
+    public function books()
+    {
+        return $this->hasOne(books::class, 'id', 'book_id');
+    }
 }

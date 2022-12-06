@@ -37,4 +37,9 @@ class books extends Model
     {
         return $this->hasOne(category::class, 'id', 'categ_id');
     }
+
+    public function bookloans()
+    {
+        return $this->belongsTo(bookloan::class, 'id', 'book_id');
+    }
 }

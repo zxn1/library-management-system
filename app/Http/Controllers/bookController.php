@@ -11,6 +11,7 @@ use App\Models\languages;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Session;
+use Carbon\Carbon;
 
 class bookController extends Controller
 {
@@ -35,6 +36,21 @@ class bookController extends Controller
             //'name', 'LIKE', '%' . $request->search . '%'
             $book = books::where('title', 'LIKE', '%'. $request->booktitle .'%')->paginate(4);
             Session::flash('status', "Buku yang dijumpai menerusi carian tajuk buku adalah " . count($book) . ' buah buku.');
+            return view('booklist', ['data' => $book]);
+        }
+    }
+
+    function searchunavailablebook()
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            //'name', 'LIKE', '%' . $request->search . '%'
+            //$book = books::where('title', 'LIKE', '%'. $request->booktitle .'%')->paginate(4);
+            $book = books::whereHas('bookloans')->paginate(4);
+
+            Session::flash('status', "Buku yang tidak tersedia didalam pusat sumber adalah sebanyak " . count($book) . ' buah buku.');
             return view('booklist', ['data' => $book]);
         }
     }
@@ -258,7 +274,23 @@ class bookController extends Controller
             return redirect()->route('login');
         } else {
             $bkloan = bookloan::paginate(4);
-            return view('bookloan', ['data' => $bkloan]);
+            $arr = [];
+            //return (Carbon::now()->format("Y-m-d"));
+            //return $bkloan->perPage();
+            //return $bkloan->count();
+            for($i = 0; $i < $bkloan->count(); $i++)
+            {
+                if(Carbon::now()->gt($bkloan[$i]->return_date)) //date is greater
+                {
+                    //return true;
+                    array_push($arr, 1); //true
+                } else {
+                    array_push($arr, 0); //false
+                }
+                //array_push($arr, )
+            }
+            //return $arr;
+            return view('bookloan', ['data' => $bkloan, 'denda' => $arr]);
         }
     }
 
@@ -289,11 +321,25 @@ class bookController extends Controller
             return redirect()->back()->with('error', 'maklumat tidak dilengkapkan.');
         } else 
         {
-            $book = books::where('title', $request->bookname)->first();
-            if($book->id == null)
+            $book = '';
+            if(books::where('title', $request->bookname)->exists())
+            {
+                $book = books::where('title', $request->bookname)->first();
+            } else {
+                return redirect()->back()->with('error', 'Maklumat buku yang dimasukkan tidak dijumpai dalam pangkalan data.');
+            }
+            //$book = books::where('title', $request->bookname)->first();
+            
+            /*if($book->id == null)
             {
                 return redirect()->back()->with('error', 'Peminjaman gagal direkodkan.');
+            }*/
+
+            if(bookloan::where('book_id', $book->id)->exists())
+            {
+                return redirect()->back()->with('error', 'Buku telah dipinjam oleh pelajar lain.');
             }
+
             $bkloan = new bookloan;
             $bkloan->book_id = $book->id;
             $bkloan->unique_stud_id = $request->idpss;
@@ -307,6 +353,16 @@ class bookController extends Controller
             } else {
                 return redirect()->back()->with('error', 'Peminjaman gagal direkodkan.');
             }
+        }
+    }
+
+    function deleteBookLoan(Request $request)
+    {
+        if(bookloan::find($request->id)->delete())
+        {
+            return redirect()->back()->with('status', 'rekod pinjaman berjaya dipadamkan.');
+        } else {
+            return redirect()->back()->with('fails', 'rekod pinjaman gagal dipadamkan.');
         }
     }
 }

@@ -40,6 +40,7 @@
                 <option value="3">Carian mengikut nama pengarang</option>
                 <option value="4">Carian mengikut tahun terbit</option>
                 <option value="5">Carian mengikut tahun perolehan</option>
+                <option value="6">Carian buku yang tidak tersedia (dipinjam).</option>
             </select>
         </div>
 
@@ -174,6 +175,24 @@
         </div>
         </form>
 
+        <!-- search type 6 -->
+        <div class="form-row" style="margin-top : 40px;" id="form6" style="display : none;">
+            <div class="form-group col-md-12">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <a href="{{route('borrowed')}}">
+                            <button type="submit" class="btn btn-dark" type="button">Mencari
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search-heart" viewBox="0 0 16 16">
+                                <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z"/>
+                                <path d="M13 6.5a6.471 6.471 0 0 1-1.258 3.844c.04.03.078.062.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1.007 1.007 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5ZM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z"/>
+                            </svg>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- end search form -->
 
             <div class="row" style="margin-top : 30px;">
@@ -224,7 +243,14 @@
                             <img class="img-fluid" width="100px" src="./src/img/no_cover.jpg"/>
                             @endif
                         </td>
-                        <td>{{ $books->title }}</td>
+                        <td>{{ $books->title }}
+                            <br>
+                            @if( $books->bookloans )
+                            <div style="background-color : #d63658; border-radius : 8px; color : white;"><center><span style="margin-left : 3px; margin-right : 3px;">Buku telah dipinjam</span></center></div>
+                            @else
+                            <div style="background-color : #64e366; border-radius : 8px;"><center>Buku tersedia</center></div>
+                            @endif
+                        </td>
                         <td>{{ $books->authors->name }}</td>
                         <td>{{ $books->publisher }}</td>
                         <td>{{ $books->languages->type_lang }}</td>
@@ -302,6 +328,7 @@
                 document.getElementById('form3').style.display = 'none';
                 document.getElementById('form4').style.display = 'none';
                 document.getElementById('form5').style.display = 'none';
+                document.getElementById('form6').style.display = 'none';
             } else if(val == 2)
             {
                 document.getElementById('form1').style.display = 'none';
@@ -309,6 +336,7 @@
                 document.getElementById('form3').style.display = 'none';
                 document.getElementById('form4').style.display = 'none';
                 document.getElementById('form5').style.display = 'none';
+                document.getElementById('form6').style.display = 'none';
             } else if(val == 3)
             {
                 document.getElementById('form1').style.display = 'none';
@@ -316,6 +344,7 @@
                 document.getElementById('form3').style.display = 'block';
                 document.getElementById('form4').style.display = 'none';
                 document.getElementById('form5').style.display = 'none';
+                document.getElementById('form6').style.display = 'none';
             } else if(val == 4)
             {
                 document.getElementById('form1').style.display = 'none';
@@ -323,6 +352,7 @@
                 document.getElementById('form3').style.display = 'none';
                 document.getElementById('form4').style.display = 'block';
                 document.getElementById('form5').style.display = 'none';
+                document.getElementById('form6').style.display = 'none';
             } else if(val == 5)
             {
                 document.getElementById('form1').style.display = 'none';
@@ -330,6 +360,15 @@
                 document.getElementById('form3').style.display = 'none';
                 document.getElementById('form4').style.display = 'none';
                 document.getElementById('form5').style.display = 'block';
+                document.getElementById('form6').style.display = 'none';
+            } else if(val == 6)
+            {
+                document.getElementById('form1').style.display = 'none';
+                document.getElementById('form2').style.display = 'none';
+                document.getElementById('form3').style.display = 'none';
+                document.getElementById('form4').style.display = 'none';
+                document.getElementById('form5').style.display = 'none';
+                document.getElementById('form6').style.display = 'block';
             }
         }
         /*function generatebarcode()

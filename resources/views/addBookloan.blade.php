@@ -85,6 +85,15 @@ input[type=submit] {
     </div>
     @endif
 
+    @if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top : 15px; margin-left : 30px; margin-right : 30px;">
+    <strong>Gagal!</strong> {{ session('error') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    @endif
+
        <div style="position : relative; top : 10px; margin : auto; background-color : lightgrey; box-shadow : 0 4px 5px rgb(0 0 0 / 50%); width : 550px;">
             <div style="margin : 30px; padding-top : 30px;">
                 <form action="{{route('bookloanReg')}}" method="POST">
