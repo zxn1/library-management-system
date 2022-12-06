@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\books;
 use App\Models\authors;
+use App\Models\bookloan;
 use App\Models\category;
 use App\Models\languages;
 use Illuminate\Support\Facades\Auth;
@@ -248,5 +249,64 @@ class bookController extends Controller
     {
         $book = books::where('id', $request->id)->first();
         return view('viewbook', ['data' => $book]);
+    }
+
+    function displayBookLoan()
+    {
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            $bkloan = bookloan::paginate(4);
+            return view('bookloan', ['data' => $bkloan]);
+        }
+    }
+
+    function bookQuery(Request $request)
+    {
+        $book = books::where('title', 'LIKE', '%' . $request->search . '%')->select('title')->limit('4')->get();
+        $array = [];
+
+        for($i = 0; $i < count($book); $i++)
+        {
+            array_push($array, ''. $book[$i]->title);
+        }
+
+        return $array;
+    }
+    
+    function getRegBookLoan(Request $request)
+    {
+        //return authors::where('name', $request->pengarang)->select('id')->first();
+        $validator =  Validator::make($request->all(), [
+            'idpss' => 'required',
+            'bookname' => 'required',
+            'dateloan' => 'required',
+            'datereturn' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'maklumat tidak dilengkapkan.');
+        } else 
+        {
+            $book = books::where('title', $request->bookname)->first();
+            if($book->id == null)
+            {
+                return redirect()->back()->with('error', 'Peminjaman gagal direkodkan.');
+            }
+            $bkloan = new bookloan;
+            $bkloan->book_id = $book->id;
+            $bkloan->unique_stud_id = $request->idpss;
+            $bkloan->loan_date = $request->dateloan;
+            $bkloan->return_date = $request->datereturn;
+
+            if($bkloan->save())
+            {
+                Session::flash('success', "Peminjaman buku berjaya direkodkan.");
+                return redirect()->route('bkloan')->with(['success' => 'Peminjaman buku berjaya direkodkan.']);
+            } else {
+                return redirect()->back()->with('error', 'Peminjaman gagal direkodkan.');
+            }
+        }
     }
 }

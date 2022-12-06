@@ -185,27 +185,20 @@
             <span class="navList__subheading-title" style="position : relative; top : -16px; margin-left : 44px;">Pelajar</span>
           </div>
           </a>
-          
-        </li>
 
-        <li>
-          <div class="navList__subheading row row--align-v-center">
-            <span class="navList__subheading-icon">
-                <span style="position : relative; top : 10px;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                  </svg>
-                </span>
+          <a href="{{route('bkloan')}}">
+          <div class="ownli">
+            <span class="navList__subheading-icon" style="padding-top : 15px; margin-left : 27px;">
+                <span style="position : relative; top : 5px; margin-right : 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-diamond-half" viewBox="0 0 16 16">
+                  <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 .989c.127 0 .253.049.35.145l6.516 6.516a.495.495 0 0 1 0 .7L8.35 14.866a.493.493 0 0 1-.35.145V.989z"/>
+                </svg>
+              </span>
             </span>
-            <span class="navList__subheading-title" style="position : relative; top : -10px;">Test</span>
+            <span class="navList__subheading-title" style="position : relative; top : -16px; margin-left : 44px;">Pinjam</span>
           </div>
-          <ul class="subList subList--hidden">
-            <a href="{{route('authors')}}"><li class="subList__item">Pengarang</li></a>
-            <a href="{{route('lang')}}"><li class="subList__item">Bahasa</li></a>
-            <a href="{{route('category')}}"><li class="subList__item">Kategori</li></a>
-            <a href="{{route('bklst')}}"><li class="subList__item">Buku</li></a>
-            <!--<li class="subList__item">soon..</li>-->
-          </ul>
+          </a>
+          
         </li>
       </ul>
     </div>

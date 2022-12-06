@@ -91,6 +91,12 @@ Route::get('/registerStudent', function(){
     return view('registerstudent');
 })->name('regStud');
 
+Route::get('/addBookLoan', function()
+{
+    return view('addBookloan');
+})->name('addbkloan');
+
+Route::get('/bookLoan', [bookController::class, 'displayBookLoan'])->name('bkloan');
 
 //go to controller
 Route::post('/loginGet', [Controller::class, 'login']);
@@ -176,3 +182,7 @@ Route::post('/studentModify', [studentController::class, 'getModifyStudent'])->n
 Route::get('/modifyStudent/{unique_id}', [studentController::class, 'modifyStudent']);
 
 Route::get('/viewStudent/{id}', [studentController::class, 'viewStudent']);
+
+Route::get('/bookName/{search}', [bookController::class, 'bookQuery']);
+
+Route::post('/bookLoanRegister', [bookController::class, 'getRegBookLoan'])->name('bookloanReg');
