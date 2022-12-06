@@ -187,6 +187,12 @@ Route::get('/bookName/{search}', [bookController::class, 'bookQuery']);
 
 Route::post('/bookLoanRegister', [bookController::class, 'getRegBookLoan'])->name('bookloanReg');
 
+Route::post('/searchBookloanByName', [bookController::class, 'searchbookloanbystudent'])->name('srchbklnname');
+
+Route::post('/searchBookloanByUniqueID', [bookController::class, 'searchbookloanbyunique'])->name('srchbklnid');
+
 Route::get('/deleteBookloan/{id}', [bookController::class, 'deleteBookLoan']);
 
 Route::get('/unavailableBook', [bookController::class, 'searchunavailablebook'])->name('borrowed');
+
+Route::get('/lateLoanbook', [bookController::class, 'searchbookloanlate'])->name('lateLoan');
