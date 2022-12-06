@@ -8,6 +8,7 @@ use App\Models\authors;
 use App\Models\bookloan;
 use App\Models\category;
 use App\Models\languages;
+use App\Models\setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Session;
@@ -457,5 +458,23 @@ class bookController extends Controller
         } else {
             return redirect()->back()->with('fails', 'rekod pinjaman gagal dipadamkan.');
         }
+    }
+
+    function penaltyPay(Request $request)
+    {
+        //setting thing
+        $settings = setting::where('id', 1)->first();
+        $charge = $settings->chargeperday;
+        $charge1day = number_format((float)$charge, 2, '.', '');
+
+        //get bookloan
+        $bkloan = bookloan::where('id', $request->id)->first();
+        $nowDate = Carbon::now()->format("Y-m-d");
+        $diffDays = Carbon::parse($bkloan->return_date)->diffInDays(Carbon::parse($nowDate));
+        //number_format((float)$foo, 2, '.', '');
+
+        //kira harga total
+        $totalfee = $charge1day*$diffDays;
+        return view('penalty', ['loan' => $bkloan, 'charge' => $charge1day, 'date' => $nowDate, 'diffInDays' => $diffDays, 'fee' => number_format((float)$totalfee, 2, '.', '')]);
     }
 }
