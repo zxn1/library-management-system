@@ -137,7 +137,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="/viewBooks/{{ $stud->unique_id }}">
+                                        <a href="/viewStudent/{{ $stud->unique_id }}">
                                         <button type="button" class="btn btn-primary" style="border-radius : 100%; height : 35px; width : 35px;">
                                         <svg style="position : relative; left : -3px; top : -3px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                         <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>

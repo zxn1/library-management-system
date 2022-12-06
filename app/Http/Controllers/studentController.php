@@ -165,4 +165,10 @@ class studentController extends Controller
             }
         }
     }
+
+    function viewStudent(Request $request)
+    {
+        $stud = students::where('unique_id', $request->id)->first();
+        return view('viewstudent', ['data' => $stud]);
+    }
 }

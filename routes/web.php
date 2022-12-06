@@ -174,3 +174,5 @@ Route::post('/studentUnique', [studentController::class, 'studentsbysearchunique
 Route::post('/studentModify', [studentController::class, 'getModifyStudent'])->name('modifStud');
 
 Route::get('/modifyStudent/{unique_id}', [studentController::class, 'modifyStudent']);
+
+Route::get('/viewStudent/{id}', [studentController::class, 'viewStudent']);
