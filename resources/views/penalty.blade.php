@@ -25,8 +25,7 @@
 
        <div style="position : relative; top : 30px; margin : auto; background-color : lightgrey; box-shadow : 0 4px 5px rgb(0 0 0 / 50%); width : 550px;">
             <div style="margin : 30px; padding-top : 30px;">
-                <form action="{{route('authreg')}}" method="POST">
-                    @csrf
+                <div>
                     <h6><strong>Peminjam</strong></h6>
                     <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -114,8 +113,10 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-info" style="margin-bottom : 15px;">Bayar Hutang</button>
-                </form>
+                    <a href="/payPenalty/{{ $loan->id }}">
+                        <button type="submit" class="btn btn-info" style="margin-bottom : 15px;">Bayar Hutang</button>
+                    </a>
+                </div>
             </div>
        </div>
 

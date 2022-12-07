@@ -317,6 +317,7 @@
         
     </div>
     <script>
+        document.getElementById('form6').style.display = 'none';
         function perubahanfilter()
         {
             let val = document.getElementById('pilihanfilter').value;

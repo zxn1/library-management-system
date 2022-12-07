@@ -59,7 +59,7 @@ class bookController extends Controller
             //return $bkloan->count();
             for($i = 0; $i < $bkloan->count(); $i++)
             {
-                if(Carbon::now()->gt($bkloan[$i]->return_date)) //date is greater
+                if(Carbon::parse(Carbon::now()->format("Y-m-d"))->gt($bkloan[$i]->return_date)) //date is greater
                 {
                     //return true;
                     array_push($arr, 1); //true
@@ -91,7 +91,7 @@ class bookController extends Controller
             //return $bkloan->count();
             for($i = 0; $i < $bkloan->count(); $i++)
             {
-                if(Carbon::now()->gt($bkloan[$i]->return_date)) //date is greater
+                if(Carbon::parse(Carbon::now()->format("Y-m-d"))->gt($bkloan[$i]->return_date)) //date is greater
                 {
                     //return true;
                     array_push($arr, 1); //true
@@ -374,7 +374,7 @@ class bookController extends Controller
             //return $bkloan->count();
             for($i = 0; $i < $bkloan->count(); $i++)
             {
-                if(Carbon::now()->gt($bkloan[$i]->return_date)) //date is greater
+                if(Carbon::parse(Carbon::now()->format("Y-m-d"))->gt($bkloan[$i]->return_date)) //date is greater
                 {
                     //return true;
                     array_push($arr, 1); //true
@@ -442,8 +442,8 @@ class bookController extends Controller
 
             if($bkloan->save())
             {
-                Session::flash('success', "Peminjaman buku berjaya direkodkan.");
-                return redirect()->route('bkloan')->with(['success' => 'Peminjaman buku berjaya direkodkan.']);
+                Session::flash('status', "Peminjaman buku berjaya direkodkan.");
+                return redirect()->route('bkloan');//->with(['success' => 'Peminjaman buku berjaya direkodkan.']);
             } else {
                 return redirect()->back()->with('error', 'Peminjaman gagal direkodkan.');
             }
@@ -476,5 +476,32 @@ class bookController extends Controller
         //kira harga total
         $totalfee = $charge1day*$diffDays;
         return view('penalty', ['loan' => $bkloan, 'charge' => $charge1day, 'date' => $nowDate, 'diffInDays' => $diffDays, 'fee' => number_format((float)$totalfee, 2, '.', '')]);
+    }
+
+    function payPenalty(Request $request)
+    {
+        $bkloan = bookloan::find($request->id);
+        $bkloan->return_date = Carbon::now()->format("Y-m-d");
+
+        if($bkloan->save())
+        {
+            Session::flash('status', "Rekod pembayaran denda berjaya disimpan.");
+            return redirect()->route('bkloan');//->with(['status' => 'Rekod pembayaran denda berjaya disimpan.']);
+        } else {
+            return redirect()->back()->with('error', 'Gagal merekod pembayaran.');
+        }
+    }
+
+    function doneReturnBook(Request $request)
+    {
+        $bkloan = bookloan::find($request->id);
+        $nama = $bkloan->unique_stud_id;
+        $book = $bkloan->books->title;
+        if($bkloan->delete())
+        {
+            return redirect()->back()->with('status', 'Pelajar (' . $nama . ') telah berjaya memulangkan buku (' . $book . ')!');
+        } else {
+            return redirect()->back()->with('error', 'Gagal merekodkan pemulangan buku.');
+        }
     }
 }

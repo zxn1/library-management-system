@@ -198,3 +198,7 @@ Route::get('/unavailableBook', [bookController::class, 'searchunavailablebook'])
 Route::get('/lateLoanbook', [bookController::class, 'searchbookloanlate'])->name('lateLoan');
 
 Route::get('/penaltyCharge/{id}', [bookController::class, 'penaltyPay']);
+
+Route::get('/payPenalty/{id}', [bookController::class, 'payPenalty']);
+
+Route::get('/returnBookComplete/{id}', [bookController::class, 'doneReturnBook']);
