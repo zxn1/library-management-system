@@ -208,3 +208,5 @@ Route::get('/setting', [Controller::class, 'displaySetting'])->name('setting');
 Route::post('/setPenaltyCharge', [Controller::class, 'setPenaltyCharge'])->name('setCharge');
 
 Route::post('/setNewAdminKey', [Controller::class, 'setNewKey'])->name('setNewKey');
+
+Route::get('/viewBooksBorrowed/{id}', [studentController::class, 'viewBooksBorrowed']);

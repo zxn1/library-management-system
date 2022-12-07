@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\students;
+use App\Models\bookloan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Session;
+use Carbon\Carbon;
 
 class studentController extends Controller
 {
@@ -170,5 +172,69 @@ class studentController extends Controller
     {
         $stud = students::where('unique_id', $request->id)->first();
         return view('viewstudent', ['data' => $stud]);
+    }
+
+    function viewBooksBorrowed(Request $request)
+    {
+        /*
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            //'name', 'LIKE', '%' . $request->search . '%'
+            $stud_id = $request->search;
+            $bkloan = bookloan::whereHas('students', function ($query) use($stud_id) {
+                $query->where('unique_id', $stud_id);
+            })->paginate(4);
+
+            $arr = [];
+            //return (Carbon::now()->format("Y-m-d"));
+            //return $bkloan->perPage();
+            //return $bkloan->count();
+            for($i = 0; $i < $bkloan->count(); $i++)
+            {
+                if(Carbon::parse(Carbon::now()->format("Y-m-d"))->gt($bkloan[$i]->return_date)) //date is greater
+                {
+                    //return true;
+                    array_push($arr, 1); //true
+                } else {
+                    array_push($arr, 0); //false
+                }
+                //array_push($arr, )
+            }
+            Session::flash('status', "Buku yang dijumpai menerusi carian buku berkait unique ID pelajar sebanyak " . count($bkloan) . ' buah buku.');
+            return view('bookloan', ['data' => $bkloan, 'denda' => $arr]);
+        }
+        */
+        //return view('viewSpecificLoan');
+
+        if(!Auth::check())
+        {
+            return redirect()->route('login');
+        } else {
+            //'name', 'LIKE', '%' . $request->search . '%'
+            $stud_id = $request->id;
+            $bkloan = bookloan::whereHas('students', function ($query) use($stud_id) {
+                $query->where('unique_id', $stud_id);
+            })->paginate(4);
+
+            $arr = [];
+            //return (Carbon::now()->format("Y-m-d"));
+            //return $bkloan->perPage();
+            //return $bkloan->count();
+            for($i = 0; $i < $bkloan->count(); $i++)
+            {
+                if(Carbon::parse(Carbon::now()->format("Y-m-d"))->gt($bkloan[$i]->return_date)) //date is greater
+                {
+                    //return true;
+                    array_push($arr, 1); //true
+                } else {
+                    array_push($arr, 0); //false
+                }
+                //array_push($arr, )
+            }
+            Session::flash('status', "Buku yang dijumpai menerusi carian buku berkait unique ID pelajar sebanyak " . count($bkloan) . ' buah buku.');
+            return view('viewSpecificLoan', ['data' => $bkloan, 'denda' => $arr, 'nama' => students::where('unique_id', $stud_id)->first()]);
+        }
     }
 }

@@ -189,7 +189,7 @@
                             <tr>
                             <center>
                                 <td></td>
-                                <td colspan="4">Tiada jenis bahasa dijumpai.</td>
+                                <td colspan="4">Tiada pinjaman buku yang dijumpai.</td>
                             </center>
                             </tr>
                         @endforelse
