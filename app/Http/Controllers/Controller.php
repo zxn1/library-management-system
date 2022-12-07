@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -120,6 +121,66 @@ class Controller extends BaseController
             return redirect()->route('login')->with('logout', 'Berjaya log keluar!');
         } else {
             return redirect()->back()->with('faillogout', 'Gagal untuk log keluar.');
+        }
+    }
+
+    function displaySetting()
+    {
+        $settings = setting::where('id', 1)->first();
+        $charge1day = number_format((float)$settings->chargeperday, 2, '.', '');
+        return view('settings', ['charge' => $charge1day]);
+    }
+
+    function setPenaltyCharge(Request $request)
+    {
+        $validator =  Validator::make($request->all(), [
+            'charge' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'Gagal menetapkan harga baru bayaran denda.');
+        } else {
+            $setting = setting::find(1);
+            $setting->chargeperday = $request->charge;
+            if($setting->save())
+            {
+                //Session::flash('status', "Rekod pembayaran denda berjaya disimpan.");
+                return redirect()->back()->with('status', 'Harga baru bayaran denda telah ditetapkan.');
+            } else {
+                return redirect()->back()->with('error', 'Gagal menetapkan harga baru bayaran denda.');
+            }
+        }
+    }
+
+    function setNewKey(Request $request)
+    {
+        $validator =  Validator::make($request->all(), [
+            'prevkey' => 'required',
+            'key' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'Sila pastikan Maklumat key lama dan key baru telah dimasukkan.');
+        } else {
+            if($request->prevkey != $request->key)
+            {
+                $setting = setting::find(1);
+                if($setting->admin_key == $request->prevkey)
+                {
+                    $setting->admin_key = $request->key;
+                    if($setting->save())
+                    {
+                        //Session::flash('status', "Rekod pembayaran denda berjaya disimpan.");
+                        return redirect()->back()->with('status', 'Admin key yang baru telah ditetapkan.');
+                    } else {
+                        return redirect()->back()->with('error', 'Gagal menetapkan Admin key baru.');
+                    }
+                } else {
+                    return redirect()->back()->with('error', 'Admin key sebelumnya tidak tepat!');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Anda menggunakan Admin key yang sama seperti sebelumnya! Sila guna Key yang lain.');
+            }
         }
     }
 }

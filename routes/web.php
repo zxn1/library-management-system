@@ -202,3 +202,9 @@ Route::get('/penaltyCharge/{id}', [bookController::class, 'penaltyPay']);
 Route::get('/payPenalty/{id}', [bookController::class, 'payPenalty']);
 
 Route::get('/returnBookComplete/{id}', [bookController::class, 'doneReturnBook']);
+
+Route::get('/setting', [Controller::class, 'displaySetting'])->name('setting');
+
+Route::post('/setPenaltyCharge', [Controller::class, 'setPenaltyCharge'])->name('setCharge');
+
+Route::post('/setNewAdminKey', [Controller::class, 'setNewKey'])->name('setNewKey');
