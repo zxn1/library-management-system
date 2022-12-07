@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\author;
+use App\Http\Controllers\barcodeController;
 use App\Http\Controllers\bookController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\Controller;
@@ -95,6 +96,11 @@ Route::get('/addBookLoan', function()
 {
     return view('addBookloan');
 })->name('addbkloan');
+
+Route::get('/barcode', function()
+{
+    return view('scanBarCode');
+})->name('barcode');
 
 Route::get('/bookLoan', [bookController::class, 'displayBookLoan'])->name('bkloan');
 
@@ -218,3 +224,7 @@ Route::post('/viewLoanByDate', [bookController::class, 'viewLoanByRangeDate'])->
 Route::post('/viewLoanByYear', [bookController::class, 'viewLoanByRangeYear'])->name('viewLoanBYear');
 
 Route::get('/viewLoanByLate/{id}', [bookController::class, 'specificLateReturnBook']);
+
+Route::post('/barcodeToBorrow', [barcodeController::class, 'barcodeToIssue'])->name('bar2bor');
+
+Route::post('/processingDetails', [barcodeController::class, 'registerLoanDetails'])->name('ProcBar');

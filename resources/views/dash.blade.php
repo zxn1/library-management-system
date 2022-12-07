@@ -190,37 +190,8 @@
       </div>
 
       <div class="card">
-        <div class="card__header">
-          <div class="card__header-title text-light">Recent <strong>Documents</strong>
-            <a href="#" class="card__header-link text-bold">View All</a>
-          </div>
-          <div class="settings">
-            <div class="settings__block"><i class="fas fa-edit"></i></div>
-            <div class="settings__block"><i class="fas fa-cog"></i></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="documents">
-            <div class="document">
-              <div class="document__img"></div>
-              <div class="document__title">tesla-patents</div>
-              <div class="document__date">07/16/2018</div>
-            </div>
-            <div class="document">
-              <div class="document__img"></div>
-              <div class="document__title">yearly-budget</div>
-              <div class="document__date">09/04/2018</div>
-            </div>
-            <div class="document">
-              <div class="document__img"></div>
-              <div class="document__title">top-movies</div>
-              <div class="document__date">10/10/2018</div>
-            </div>
-            <div class="document">
-              <div class="document__img"></div>
-              <div class="document__title">trip-itinerary</div>
-              <div class="document__date">11/01/2018</div>
-            </div>
+        <div class="card__header" style="height : 180px; border-radius : 8px; opacity : 0.3;">
+          <div class="card__header-title text-light">
           </div>
         </div>
       </div>
