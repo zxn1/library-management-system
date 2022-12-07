@@ -210,3 +210,11 @@ Route::post('/setPenaltyCharge', [Controller::class, 'setPenaltyCharge'])->name(
 Route::post('/setNewAdminKey', [Controller::class, 'setNewKey'])->name('setNewKey');
 
 Route::get('/viewBooksBorrowed/{id}', [studentController::class, 'viewBooksBorrowed']);
+
+Route::post('/viewLoanByName', [bookController::class, 'viewLoanByName'])->name('viewLoanBName');
+
+Route::post('/viewLoanByDate', [bookController::class, 'viewLoanByRangeDate'])->name('viewLoanBDate');
+
+Route::post('/viewLoanByYear', [bookController::class, 'viewLoanByRangeYear'])->name('viewLoanBYear');
+
+Route::get('/viewLoanByLate/{id}', [bookController::class, 'specificLateReturnBook']);
