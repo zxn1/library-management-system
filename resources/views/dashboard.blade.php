@@ -107,8 +107,18 @@
       <img src="https://d3avoj45mekucs.cloudfront.net/astrogempak/media/aplikasi/aishah_1.jpg" class="rounded-circle mb-3" style="width: 150px; margin-top : 15px;"
         alt="Avatar" />
 
-        <h5 class="mb-2"><strong>Cikgu Saidatul Fatini</strong></h5>
-        <p class="text-muted" style="color :#f1f1f1 !important;">Pusat Sumber Sekolah <span class="badge bg-primary">PSS</span></p>
+        <h5 class="mb-2">
+          @if(auth()->user()->userInfo->role == 1)
+          <strong>Cikgu {{ auth()->user()->name }}</strong>
+          @else
+          <strong>{{ auth()->user()->name }}</strong>
+          @endif
+        </h5>
+        @if(auth()->user()->userInfo->role == 1)
+        <p class="text-muted" style="color :#f1f1f1 !important;">Guru Pusat Sumber <span class="badge bg-primary">GPSS</span></p>
+        @else
+        <p class="text-muted" style="color :#f1f1f1 !important;">Pengawas Pusat Sumber <span class="badge bg-primary">PPS</span></p>
+        @endif
         </center>
       </div>
     </div>
@@ -155,6 +165,7 @@
           
         </li>
 
+        @if(auth()->user()->userInfo->role == 1)
         <li>
           <div class="navList__subheading row row--align-v-center">
             <span class="navList__subheading-icon">
@@ -174,6 +185,7 @@
             <!--<li class="subList__item">soon..</li>-->
           </ul>
         </li>
+        @endif
 
         
         <!--<li>
@@ -189,6 +201,7 @@
           </ul>
         </li> -->
 
+        @if(auth()->user()->userInfo->role == 1)
         <li class="navList__heading">Maklumat Pelajar
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
@@ -247,6 +260,7 @@
           </a>
           
         </li>
+        @endif
       </ul>
     </div>
   </aside>

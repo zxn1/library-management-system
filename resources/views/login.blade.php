@@ -26,7 +26,7 @@
         @endif
 
         @if (session('logout'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
           <strong>Error!</strong> {{ session('logout') }}
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -55,14 +55,17 @@
 
     </div>
   </div>
-  <div class='box-info'>
-					    <p><button onclick="closeLoginInfo();normalizeBox();" class='b b-info i i-left' title='Back to Sign In'></button><h3>Bantuan?</h3>
-    </p>
-					    <div class='line-wh'></div>
-    					<button onclick="" class='b-support' title='Forgot Password?'> Lupa Kata Laluan?</button>
-    <button onclick="" class='b-support' title='Contact Support'> Hubungi Sokongan</button>
-    					<div class='line-wh'></div>
-    <a href="{{route('register')}}"><button onclick="" class='b-cta' title='Sign up now!'> BUAT AKAUN</button></a>
-  				</div>
+  <form action="{{ route('register') }}" method="POST">
+    @csrf
+    <div class='box-info'>
+      <p><button onclick="closeLoginInfo();normalizeBox();" class='b b-info i i-left' title='Back to Sign In'></button><h3>Bantuan?</h3>
+      </p>
+        <div class='line-wh'></div>
+          <span><strong>Buat akaun baru?</strong></span><br><span style="font-size : 12px;">Masukkan Kod akses (Admin Key) terlebih dahulu!</span>
+            <input type="text" class='b-support' title='Contact Support' name="key" placeholder="Admin Key"></input>
+          <div class='line-wh'></div>
+          <button type="submit" class='b-cta' title='Sign up now!'> BUAT AKAUN</button>
+      </div>
+  </form>
 </div>
 @stop

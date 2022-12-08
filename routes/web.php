@@ -55,14 +55,7 @@ Route::get('/dashboard', [Controller::class, 'displayDashboard'])->name('dash');
 
 //Route::get('/tester', [Controller::class, 'displayDashboard']);
 
-Route::get('/register', function(){
-    if(!Auth::check())
-    {
-        return view('register');
-    } else {
-        return redirect()->route('dash');
-    }
-})->name('register');
+Route::post('/register', [Controller::class, 'goRegisterAdmin'])->name('register');
 
 /*Route::get('/bookregister', function(){
     if(!Auth::check())

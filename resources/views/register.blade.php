@@ -64,16 +64,16 @@
             </div>
           </div>
             <div class="input_field radio_option" style="padding-bottom : 25px;">
-              <input type="radio" name="radiogroup1" id="rd1">
+              <input type="radio" name="radiogroup1" id="rd1" value="1">
               <label for="rd1">Lelaki</label>
-              <input type="radio" name="radiogroup1" id="rd2">
+              <input type="radio" name="radiogroup1" id="rd2" value="2">
               <label for="rd2">Perempuan</label>
               </div>
               <div class="input_field select_option">
                 <select name="role">
-                  <option>Pilih peranan</option>
-                  <option>Guru sekolah</option>
-                  <option>Pengawas Pusat Sumber (PSS)</option>
+                  <option selected disabled>Pilih peranan</option>
+                  <option value="1">Guru sekolah</option>
+                  <option value="2">Pengawas Pusat Sumber (PSS)</option>
                 </select>
                 <div class="select_arrow"></div>
               </div>

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\books;
 use App\Models\category;
 use App\Models\students;
+use App\Models\userInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -75,58 +76,57 @@ class Controller extends BaseController
     
     function register(Request $request)
     {
-        /*$this->validate(request(), [
-            'fname' => 'required',
-            'lname' => 'required',
-            'role' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'cpassword' => 'required'
-        ]);
-
-        //return Request()->password;
-        if(!(Request()->password == Request()->cpassword))
-        {
-            //if not satisfied
-            
-        } */
-
         $validator =  Validator::make($request->all(), [
             'fname' => 'required',
             'lname' => 'required',
             'role' => 'required',
             'email' => 'required|email',
             'password' => 'required',
-            'cpassword' => 'required'
+            'cpassword' => 'required',
+            'radiogroup1' => 'required'
         ]);
 
         if (($validator->fails()) || ($request->password != $request->cpassword)) {
-            return redirect()->back()->with('status', 'Gagal untuk mendaftar akaun baru.');
+            return redirect()->back()->with('status', 'Mendaftar untuk mendaftar akaun baru tidak lengkap.');
         } else {
             $fname = $request->fname;
             $lname = $request->lname;
+            //return $request->radiogroup1 . ' - ' . $request->radiogroup2;
             //$user = User::create(request(['name', , 'email', 'password']));
 
             $user = new User;
             $user->name = $fname . ' ' . $lname;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
-            $user->save();
-
-            auth()->login($user);
-
-            return redirect()->route('dash');
+            if($user->save())
+            {
+                $usrinf = new userInfo;
+                $usrinf->user_id = $user->id;
+                $usrinf->role = $request->role;
+                $usrinf->gender = $request->radiogroup1;
+                if($usrinf->save())
+                {
+                    auth()->login($user);
+                    return redirect()->route('dash');
+                } else {
+                    return redirect()->back()->with('status', 'Gagal untuk mendaftar akaun baru.');    
+                }
+            } else {
+                return redirect()->back()->with('status', 'Gagal untuk mendaftar akaun baru.');
+            }
         }
     }
 
     function logout()
     {
-        if(Auth::logout())
+        Auth::logout();
+        return redirect()->route('login')->with('logout', 'Berjaya log keluar!');
+        /*if(Auth::logout())
         {
             return redirect()->route('login')->with('logout', 'Berjaya log keluar!');
         } else {
             return redirect()->back()->with('faillogout', 'Gagal untuk log keluar.');
-        }
+        }*/
     }
 
     function displaySetting()
@@ -315,5 +315,20 @@ class Controller extends BaseController
 
         Session::flash('dashstats', "Maklumat dashboard telah ditapis mengikut julat tarikk buku diperoleh dari (" . $date1 .") hingga (" . $date2 . ").");
         return view('dash', ['booktot' => $booktot, 'categtot' => $catetot, 'studtot' => $studtot, 'categ' => $category, 'arr_bookcateg' => $arr_bookcateg, 'bookloan' => $bookloan, 'year1' => $year1, 'year2' => $year2, 'year3' => $year3, 'year4' => $year4, 'year5' => $year5, 'year6' => $year6]);
+    }
+
+    function goRegisterAdmin(Request $request)
+    {
+        if(!Auth::check())
+        {
+            if($request->key == setting::where('id', 1)->first()->admin_key)
+            {
+                return view('register');   
+            } else {
+                return redirect()->back()->with('error', 'Admin key yang dimasukkan adalah tidak sah!');
+            }
+        } else {
+            return redirect()->route('dash');
+        }
     }
 }
