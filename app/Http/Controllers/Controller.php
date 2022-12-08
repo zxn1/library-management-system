@@ -218,7 +218,12 @@ class Controller extends BaseController
         $arr_bookcateg = [];
         for($i = 0; $i < $catetot; $i++)
         {
-            array_push($arr_bookcateg, $category[$i]->books->count());
+            if($category[$i]->books)
+            {
+                array_push($arr_bookcateg, $category[$i]->books->count());
+            } else {
+                array_push($arr_bookcateg, 0);
+            }
         }
         //return $arr_bookcateg;
 
