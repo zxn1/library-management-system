@@ -16,6 +16,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Validator;
+use Session;
 
 class Controller extends BaseController
 {
@@ -242,6 +243,77 @@ class Controller extends BaseController
         $year5 = students::where('year', '5')->count();//tahun 5
         $year6 = students::where('year', '6')->count();//tahun 6
 
+        return view('dash', ['booktot' => $booktot, 'categtot' => $catetot, 'studtot' => $studtot, 'categ' => $category, 'arr_bookcateg' => $arr_bookcateg, 'bookloan' => $bookloan, 'year1' => $year1, 'year2' => $year2, 'year3' => $year3, 'year4' => $year4, 'year5' => $year5, 'year6' => $year6]);
+    }
+
+    function displayDashboardWithFilter(Request $request)
+    {
+        if(!Auth::check())
+        {
+            return view('login');
+        }
+        //else
+
+        //input
+        $date1 = $request->datefirst;
+        $date2 = $request->datesecond;
+
+        //part 1
+        //get total buku
+        $booktot = books::whereBetween('year_acquisition', [$date1, $date2])->count();
+        //$booktot = $book->count();
+        //return $booktot;
+
+        //part 2
+        //total kategori buku
+        //whereBetween('reservation_from', [$from, $to])->get();
+        $category = category::all();
+        $catetot = $category->count();
+        //return $category;
+
+        //part 3
+        //total pelajar
+        $studtot = students::count();
+        //return $studtot;
+
+        //part 4
+        //jumlah buku bagi setiap kategori
+        $arr_bookcateg = [];
+        for($i = 0; $i < $catetot; $i++)
+        {
+            if($category[$i]->books)
+            {
+                array_push($arr_bookcateg, $category[$i]->books->whereBetween('year_acquisition', [$date1, $date2])->count());
+            } else {
+                array_push($arr_bookcateg, 0);
+            }
+        }
+        //return $arr_bookcateg;
+
+        /*
+        whereHas('students', function ($query) use($studname) {
+                $query->where('fullname', 'LIKE', '%'. $studname . '%');
+            })
+        */
+
+        //part 5
+        //jumlah buku dipinjam
+        $bookloan = bookloan::whereHas('books', function ($query) use($date1, $date2) {
+            $query->whereBetween('year_acquisition', [$date1, $date2]);
+        })->count();
+
+        //part 6
+        //total pelajar bagi setiap tahun dalam graph
+        $year1 = students::where('year', '1')->count();//tahun 1
+        //return $year1;
+        $year2 = students::where('year', '2')->count();//tahun 2
+        //return $year2;
+        $year3 = students::where('year', '3')->count();//tahun 3
+        $year4 = students::where('year', '4')->count();//tahun 4
+        $year5 = students::where('year', '5')->count();//tahun 5
+        $year6 = students::where('year', '6')->count();//tahun 6
+
+        Session::flash('dashstats', "Maklumat dashboard telah ditapis mengikut julat tarikk buku diperoleh dari (" . $date1 .") hingga (" . $date2 . ").");
         return view('dash', ['booktot' => $booktot, 'categtot' => $catetot, 'studtot' => $studtot, 'categ' => $category, 'arr_bookcateg' => $arr_bookcateg, 'bookloan' => $bookloan, 'year1' => $year1, 'year2' => $year2, 'year3' => $year3, 'year4' => $year4, 'year5' => $year5, 'year6' => $year6]);
     }
 }

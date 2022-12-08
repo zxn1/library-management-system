@@ -234,3 +234,5 @@ Route::post('/barcodeToBorrow', [barcodeController::class, 'barcodeToIssue'])->n
 Route::post('/processingDetails', [barcodeController::class, 'registerLoanDetails'])->name('ProcBar');
 
 Route::get('/checkAvailability/{id}', [barcodeController::class, 'checkAvailability']);
+
+Route::post('/dashboardFilter', [Controller::class, 'displayDashboardWithFilter'])->name('dashfilter');
