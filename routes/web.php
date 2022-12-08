@@ -228,3 +228,5 @@ Route::get('/viewLoanByLate/{id}', [bookController::class, 'specificLateReturnBo
 Route::post('/barcodeToBorrow', [barcodeController::class, 'barcodeToIssue'])->name('bar2bor');
 
 Route::post('/processingDetails', [barcodeController::class, 'registerLoanDetails'])->name('ProcBar');
+
+Route::get('/checkAvailability/{id}', [barcodeController::class, 'checkAvailability']);

@@ -26,8 +26,9 @@
                             PSS ID
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Masukkan PSS ID Pelajar" aria-label="pssid" name="pssid" aria-describedby="basic-addon1">
-                    </div>
+                    <input type="text" class="form-control" placeholder="Masukkan PSS ID Pelajar" aria-label="pssid" name="pssid" id="pssid" aria-describedby="basic-addon1">
+                    <button onclick="checkAvailability()" id="tukarwarna" type="button" class="btn btn-dark">Check</button>
+                </div>
 
                     <input type="text" name="bookid" value="{{ $data->id }}" style="display : none;"/>
 
@@ -74,6 +75,39 @@
             </div>
             </form>
        </div>
-
+       <script>
+        function checkAvailability()
+        {
+            
+            //alert(document.getElementById('pssid').value);
+            //ajax request
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText == 'no data')
+                    {
+                        //alert('no data found!');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Tiada pelajar menggunakan PSS ID \'' + document.getElementById('pssid').value + '\'!',
+                            footer: '<a href="">Why do I have this issue?</a>'
+                            });
+                    } else {
+                        document.getElementById('tukarwarna').style.backgroundColor = '#4BB543';
+                        Swal.fire(
+                            'Good job!',
+                            'Pelajar dijumpai! Nama : \'' + this.responseText + '\'.',
+                            'success'
+                            );
+                        //alert(this.responseText);
+                    }
+                //document.getElementById("demo").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "checkAvailability/" + document.getElementById('pssid').value , true);
+            xhttp.send();
+        }
+       </script>
     </div>
 @stop

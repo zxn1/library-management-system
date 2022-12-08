@@ -72,4 +72,15 @@ class barcodeController extends Controller
             }
         }
     }
+
+    function checkAvailability(Request $request)
+    {
+        $stud = students::where('unique_id', $request->id);
+        if($stud->exists())
+        {
+            return $stud->first()->fullname;
+        } else {
+            return 'no data';
+        }
+    }
 }
