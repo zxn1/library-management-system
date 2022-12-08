@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bookloan;
 use App\Models\setting;
 use App\Models\User;
+use App\Models\books;
+use App\Models\category;
+use App\Models\students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -182,5 +186,57 @@ class Controller extends BaseController
                 return redirect()->back()->with('error', 'Anda menggunakan Admin key yang sama seperti sebelumnya! Sila guna Key yang lain.');
             }
         }
+    }
+
+    function displayDashboard()
+    {
+        if(!Auth::check())
+        {
+            return view('login');
+        }
+        //else
+
+        //part 1
+        //get total buku
+        $booktot = books::count();
+        //$booktot = $book->count();
+        //return $booktot;
+
+        //part 2
+        //total kategori buku
+        $category = category::all();
+        $catetot = $category->count();
+        //return $category;
+
+        //part 3
+        //total pelajar
+        $studtot = students::count();
+        //return $studtot;
+
+        //part 4
+        //jumlah buku bagi setiap kategori
+        $arr_bookcateg = [];
+        for($i = 0; $i < $catetot; $i++)
+        {
+            array_push($arr_bookcateg, $category[$i]->books->count());
+        }
+        //return $arr_bookcateg;
+
+        //part 5
+        //jumlah buku dipinjam
+        $bookloan = bookloan::count();
+
+        //part 6
+        //total pelajar bagi setiap tahun dalam graph
+        $year1 = students::where('year', '1')->count();//tahun 1
+        //return $year1;
+        $year2 = students::where('year', '2')->count();//tahun 2
+        //return $year2;
+        $year3 = students::where('year', '3')->count();//tahun 3
+        $year4 = students::where('year', '4')->count();//tahun 4
+        $year5 = students::where('year', '5')->count();//tahun 5
+        $year6 = students::where('year', '6')->count();//tahun 6
+
+        return view('dash', ['booktot' => $booktot, 'categtot' => $catetot, 'studtot' => $studtot, 'categ' => $category, 'arr_bookcateg' => $arr_bookcateg, 'bookloan' => $bookloan, 'year1' => $year1, 'year2' => $year2, 'year3' => $year3, 'year4' => $year4, 'year5' => $year5, 'year6' => $year6]);
     }
 }

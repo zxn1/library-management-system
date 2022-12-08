@@ -42,14 +42,18 @@ Route::get('/', function() {
     }
 })->name('login');
 
-Route::get('/dashboard', function() {
+/*Route::get('/dashboard', function() {
     if(!Auth::check())
     {
         return view('login');
     } else {
         return view('dash');
     }
-})->name('dash');
+})->name('dash');*/
+
+Route::get('/dashboard', [Controller::class, 'displayDashboard'])->name('dash');
+
+//Route::get('/tester', [Controller::class, 'displayDashboard']);
 
 Route::get('/register', function(){
     if(!Auth::check())
