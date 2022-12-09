@@ -4,4 +4,8 @@ so nanti buat cron job.. running setiap hari pada pukul 3AM pagi.
 
 
 nnti run ni..
+
+ingtkan cikgu.. kalau ada pelajar sakit.. yang perlu tangguh tahun.. 
+dia perlu update manually dkt system.. sebelum masuk tahun baru.. supaya data pelajar tidak dibuang!
+
 php artisan schedule:work
