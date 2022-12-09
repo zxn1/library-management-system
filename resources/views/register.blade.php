@@ -78,8 +78,8 @@
                 <div class="select_arrow"></div>
               </div>
             <div class="input_field checkbox_option">
-            	<input type="checkbox" id="cb1">
-    			<label for="cb1">Setuju untuk mencipta akaun baru</label>
+            	<input type="checkbox" name="agree" id="cb1">
+    			<label for="cb1">Setuju dengan policy untuk mencipta akaun baru</label>
             </div>
 
           <input class="button" type="submit" value="Daftar" />

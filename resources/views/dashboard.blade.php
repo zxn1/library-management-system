@@ -76,10 +76,14 @@
     <div class="header__search">
       <input class="header__input" placeholder="Pusat Sumber Sekolah" disabled/>
     </div>
-    <div class="header__avatar" style="background-image: url('https://d3avoj45mekucs.cloudfront.net/astrogempak/media/aplikasi/aishah_1.jpg');">
-      <div class="dropdown">
+    @if(auth()->user()->userInfo->profile_img == null)
+    <div class="header__avatar" style="background-image: url('/src/img/profile.png'); background-repeat: no-repeat; background-size: cover;">
+    @else
+    <div class="header__avatar" style="background-image: url('/Image/{{ auth()->user()->userInfo->profile_img }}'); background-repeat: no-repeat; background-size: cover;">
+    @endif
+    <div class="dropdown">
         <ul class="dropdown__list">
-          <li class="dropdown__list-item">
+          <li class="dropdown__list-item" data-toggle="modal" data-target="#exampleModal">
             <span class="dropdown__icon"><i class="far fa-user"></i></span>
             <span class="dropdown__title">my profile</span>
           </li>
@@ -94,6 +98,60 @@
     </div>
   </header>
 
+  <!-- modal -->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin : auto;">
+    <div class="modal-dialog" role="document">
+      <form action="{{ route('upAcProf') }}" method="POST" enctype="multipart/form-data">
+      @csrf
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Maklumat Akaun</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <center>
+          @if(auth()->user()->userInfo->profile_img == null)
+          <img src="{{ asset('/src/img/profile.png') }}" class="rounded-circle mb-3" style="width: 150px; margin-top : 15px;" alt="Avatar" />
+          @else
+          <img src="/Image/{{ auth()->user()->userInfo->profile_img }}" class="rounded-circle mb-3" style="width: 150px; margin-top : 15px;" alt="Avatar" />
+          @endif
+          </center>
+          <div style="margin-left : 30px;">
+            Nama : {{ auth()->user()->name }} <br>
+            Email : {{ auth()->user()->email }} <br>
+            Peranan : 
+            @if(auth()->user()->userInfo->role == 1)
+            Cikgu Pusat Sumber Sekolah (GPSS) <br>
+            @else
+            Pengawas Pusat Sumber Sekolah (PPSS) <br>
+            @endif
+            Jantina : 
+            @if(auth()->user()->userInfo->gender == 1)
+            Lelaki <br>
+            @else
+            Perempuan <br>
+            @endif
+            <hr>
+            <div class="mb-3">
+              <label for="formFileSm" class="form-label">Kemaskini Gambar profile akaun?</label>
+              <input class="form-control form-control-sm" onchange="profileChanged()" name="image" id="formFileSm" type="file">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary" id="kemaskini" disabled="true">Kemaskini</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- end of modal -->
+
   <aside class="sidenav" style="overflow-x : hidden !important;">
     <div class="sidenav__brand">
       <i class="fas fa-feather-alt sidenav__brand-icon"></i>
@@ -104,8 +162,11 @@
       <div style="width : 100%;">
 
       <center>
-      <img src="https://d3avoj45mekucs.cloudfront.net/astrogempak/media/aplikasi/aishah_1.jpg" class="rounded-circle mb-3" style="width: 150px; margin-top : 15px;"
-        alt="Avatar" />
+        @if(auth()->user()->userInfo->profile_img == null)
+        <img src="{{ asset('/src/img/profile.png') }}" class="rounded-circle mb-3" style="width: 150px; margin-top : 15px;" alt="Avatar" />
+        @else
+        <img src="/Image/{{ auth()->user()->userInfo->profile_img }}" class="rounded-circle mb-3" style="width: 150px; margin-top : 15px;" alt="Avatar" />
+        @endif
 
         <h5 class="mb-2">
           @if(auth()->user()->userInfo->role == 1)
@@ -274,7 +335,14 @@
   </footer>
 </div>
 <!-- partial -->
-  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script>
+  function profileChanged()
+  {
+    document.querySelector('#kemaskini').disabled = false;
+    //document.getElementById('kemaskini').disabled == false;
+  }
+</script>
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script src='https://www.amcharts.com/lib/3/amcharts.js'></script>
 <script src='https://www.amcharts.com/lib/3/serial.js'></script>
 <script src='https://www.amcharts.com/lib/3/themes/light.js'></script>

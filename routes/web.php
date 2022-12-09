@@ -229,3 +229,5 @@ Route::post('/processingDetails', [barcodeController::class, 'registerLoanDetail
 Route::get('/checkAvailability/{id}', [barcodeController::class, 'checkAvailability']);
 
 Route::post('/dashboardFilter', [Controller::class, 'displayDashboardWithFilter'])->name('dashfilter');
+
+Route::post('/updateAccProfile', [Controller::class, 'updateProfileImage'])->name('upAcProf');

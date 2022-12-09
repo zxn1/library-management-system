@@ -86,9 +86,22 @@ class Controller extends BaseController
             'radiogroup1' => 'required'
         ]);
 
-        if (($validator->fails()) || ($request->password != $request->cpassword)) {
-            return redirect()->back()->with('status', 'Mendaftar untuk mendaftar akaun baru tidak lengkap.');
+        if(!($request->agree))
+        {
+            Session::flash('error', "Anda perlu bersetuju untuk mencipta akaun!");
+            return redirect()->route('login');
+        }
+
+        if (($validator->fails())) {
+            Session::flash('error', "Maklumat untuk mendaftar akaun baru tidak lengkap.");
+            //return redirect()->back()->with('status', 'Mendaftar untuk mendaftar akaun baru tidak lengkap.');
+            return redirect()->route('login');
         } else {
+            if($request->password != $request->cpassword)
+            {
+                Session::flash('error', "Password dan password konfirmasi tidak sejajar.");
+                return redirect()->route('login');
+            }
             $fname = $request->fname;
             $lname = $request->lname;
             //return $request->radiogroup1 . ' - ' . $request->radiogroup2;
@@ -109,10 +122,14 @@ class Controller extends BaseController
                     auth()->login($user);
                     return redirect()->route('dash');
                 } else {
-                    return redirect()->back()->with('status', 'Gagal untuk mendaftar akaun baru.');    
+                    Session::flash('error', "Gagal untuk mendaftar akaun baru.");
+                    //return redirect()->back()->with('status', 'Gagal untuk mendaftar akaun baru.');
+                    return redirect()->route('login');   
                 }
             } else {
-                return redirect()->back()->with('status', 'Gagal untuk mendaftar akaun baru.');
+                Session::flash('error', "Gagal untuk mendaftar akaun baru.");
+                //return redirect()->back()->with('status', 'Gagal untuk mendaftar akaun baru.');
+                return redirect()->route('login');   
             }
         }
     }
@@ -329,6 +346,34 @@ class Controller extends BaseController
             }
         } else {
             return redirect()->route('dash');
+        }
+    }
+
+    function updateProfileImage(Request $request)
+    {
+        $validator =  Validator::make($request->all(), [
+            'image' => 'required'
+        ]);
+
+        if (($validator->fails())) {
+            Session::flash('faillogout', "Gambar profile akaun gagal dikemaskini.");
+            return redirect()->route('dash');
+        } else {
+            //$userinf = userInfo::where('user_id', auth()->user()->id);
+            if($request->file('image')){
+                $file= $request->file('image');
+                $filename= date('YmdHi').$file->getClientOriginalName();
+                $file-> move(public_path('Image'), $filename);
+
+                if(userInfo::where('user_id', auth()->user()->id)->update(['profile_img' => $filename]))
+                {
+                    Session::flash('dashstats', "Gambar profile akaun berjaya dikemaskini!");
+                    return redirect()->route('dash');
+                } else {
+                    Session::flash('faillogout', "Gambar profile akaun gagal dikemaskini.");
+                    return redirect()->route('dash');
+                }
+            }
         }
     }
 }
