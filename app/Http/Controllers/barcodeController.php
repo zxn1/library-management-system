@@ -6,6 +6,7 @@ use App\Models\bookloan;
 use Illuminate\Http\Request;
 use App\Models\books;
 use App\Models\students;
+use App\Models\history;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -62,6 +63,11 @@ class barcodeController extends Controller
                     $bkloan->return_date = $return_date;
                     if($bkloan->save())
                     {
+                        $histo = new history;
+                        $histo->student_name = $bkloan->students->fullname;
+                        $histo->book_name = $bkloan->books->title;
+                        $histo->date_borrow = $request->date;
+                        $histo->save();
                         return redirect()->route('barcode')->with('success', 'Buku telah berjaya dipinjamkan!');
                     } else {
                         return redirect()->route('barcode')->with('failsx', 'Maklumat tidak berjaya didaftarkan.');

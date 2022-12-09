@@ -13,6 +13,7 @@ use App\Models\students;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Session;
+use App\Models\history;
 use Carbon\Carbon;
 
 class bookController extends Controller
@@ -435,6 +436,7 @@ class bookController extends Controller
                 return redirect()->back()->with('error', 'Buku telah dipinjam oleh pelajar lain.');
             }
 
+            //bookloan
             $bkloan = new bookloan;
             $bkloan->book_id = $book->id;
             $bkloan->unique_stud_id = $request->idpss;
@@ -443,6 +445,14 @@ class bookController extends Controller
 
             if($bkloan->save())
             {
+                //history
+                $histo = new history;
+                $histo->student_name = $bkloan->students->fullname;
+                $histo->book_name = $request->bookname;
+                $histo->date_borrow = $request->dateloan;
+                $histo->save();
+
+                //success
                 Session::flash('status', "Peminjaman buku berjaya direkodkan.");
                 return redirect()->route('bkloan');//->with(['success' => 'Peminjaman buku berjaya direkodkan.']);
             } else {
@@ -479,13 +489,20 @@ class bookController extends Controller
         return view('penalty', ['loan' => $bkloan, 'charge' => $charge1day, 'date' => $nowDate, 'diffInDays' => $diffDays, 'fee' => number_format((float)$totalfee, 2, '.', '')]);
     }
 
-    function payPenalty(Request $request)
+    function payPenalty(Request $request) //sini
     {
         $bkloan = bookloan::find($request->id);
         $bkloan->return_date = Carbon::now()->format("Y-m-d");
 
         if($bkloan->save())
         {
+            /*$dateBorr = Carbon::parse($bkloan->loan_date)->format("Y-m-d");
+            $dateNow = Carbon::now()->format("Y-m-d");
+            $diffInDay = Carbon::parse($dateBorr)->diffInDays(Carbon::parse($dateNow));
+            $chargeNPay = ((float)$diffInDay)*((float)setting::find(1)->chargeperday);
+
+            history::where('student_name', $bkloan->students->fullname)->where('book_name', $bkloan->books->title)->orderBy('id', 'asc')->first()->update(['penaltyCharge' => $chargeNPay]);
+            */
             Session::flash('status', "Rekod pembayaran denda berjaya disimpan.");
             return redirect()->route('bkloan');//->with(['status' => 'Rekod pembayaran denda berjaya disimpan.']);
         } else {
@@ -498,6 +515,27 @@ class bookController extends Controller
         $bkloan = bookloan::find($request->id);
         $nama = $bkloan->unique_stud_id;
         $book = $bkloan->books->title;
+        //setting::find(1)->chargeperday;
+
+        //history
+        $histo = new history;
+        $histo->student_name = $bkloan->students->fullname;
+        $histo->book_name = $book;
+        $dateBorr = Carbon::parse($bkloan->loan_date)->format("Y-m-d");
+        $histo->date_borrow = $dateBorr;
+        $dateNow = Carbon::now()->format("Y-m-d");
+        $histo->date_return = $dateNow;
+
+        $diffInDay = Carbon::parse($dateBorr)->diffInDays(Carbon::parse($dateNow));
+        $chargeNPay = ($diffInDay)*number_format((float)setting::find(1)->chargeperday, 2, '.', '');
+        if($diffInDay>0)
+        {
+            $histo->penaltyCharge = $chargeNPay-0.3;
+        } else {
+            $histo->penaltyCharge = 0.00;
+        }
+        $histo->save();
+
         if($bkloan->delete())
         {
             return redirect()->back()->with('status', 'Pelajar (' . $nama . ') telah berjaya memulangkan buku (' . $book . ')!');
