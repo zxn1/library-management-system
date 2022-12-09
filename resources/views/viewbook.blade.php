@@ -129,7 +129,7 @@
                 <div class="form-group col-md-4">
                     <div>
                     <label for="inputAddress2">Kategori</label>
-                    <input id="myInput2" type="text" value="{{$data->languages->type_lang}}" name="pengarang" placeholder="Sila isikan nama pengarang" class="form-control" readonly="readonly">
+                    <input id="myInput2" type="text" value="{{$data->category->category_name}}" name="pengarang" placeholder="Sila isikan nama pengarang" class="form-control" readonly="readonly">
 
                     <!--<div class="autocomplete" style="width: 100%;">
                         <input id="myInput1" type="text" onchange="keeptrackKategori()" name="kategori" placeholder="Sila isikan kategori" class="form-control">
@@ -185,7 +185,7 @@
             //console.log(input);
             document.getElementById('genbarcode').innerHTML = "{!! DNS1D::getBarcodeSVG(" + input + " , 'C39') !!}";
         } */
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     /*function downloadPDF() {
         const element = document.getElementById("dPDF");
 
