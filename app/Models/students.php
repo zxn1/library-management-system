@@ -18,7 +18,8 @@ class students extends Model
         'street',
         'poscode',
         'city',
-        'state'
+        'state',
+        'created_at'
     ];
     protected $primaryKey = 'unique_id';
     public $incrementing = false;

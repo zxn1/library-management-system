@@ -1,0 +1,7 @@
+ada command nama dia :automateStudentYear..
+
+so nanti buat cron job.. running setiap hari pada pukul 3AM pagi.
+
+
+nnti run ni..
+php artisan schedule:work

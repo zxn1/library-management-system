@@ -16,7 +16,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('automateStudentYear')->dailyAt('19:00'); //3 AM.. 7PM UTC time.. + 8jam
     }
+
+    protected $commands = [
+        Commands\AutomatestudentYear::class,
+    ];
 
     /**
      * Register the commands for the application.
