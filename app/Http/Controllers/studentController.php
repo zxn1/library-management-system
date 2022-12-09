@@ -102,7 +102,7 @@ class studentController extends Controller
                 if($stud->save())
                 {
                     Session::flash('success', "pelajar berjaya didaftarkan.");
-                    return redirect()->back();
+                    return redirect('/viewStudent/' . $stud->unique_id);
                 } else {
                     return redirect()->back()->with('error', 'pelajar gagal didaftarkan.');
                 }
