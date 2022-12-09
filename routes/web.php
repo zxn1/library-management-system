@@ -5,6 +5,7 @@ use App\Http\Controllers\barcodeController;
 use App\Http\Controllers\bookController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\historyController;
 use App\Http\Controllers\language;
 use App\Http\Controllers\studentController;
 use App\Models\category;
@@ -231,3 +232,5 @@ Route::get('/checkAvailability/{id}', [barcodeController::class, 'checkAvailabil
 Route::post('/dashboardFilter', [Controller::class, 'displayDashboardWithFilter'])->name('dashfilter');
 
 Route::post('/updateAccProfile', [Controller::class, 'updateProfileImage'])->name('upAcProf');
+
+Route::get('/report', [historyController::class, 'getReport'])->name('report');

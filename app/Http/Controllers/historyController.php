@@ -8,4 +8,9 @@ use App\Models\history;
 class historyController extends Controller
 {
     //
+    function getReport()
+    {
+        $history = history::all();
+        return view('report', ['data' => $history]);
+    }
 }
