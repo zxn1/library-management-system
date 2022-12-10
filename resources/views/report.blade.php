@@ -13,24 +13,68 @@
 <!-- Modal -->
 <div style="top : 23%;" class="modal fade" id="purchaseModal" tabindex="-1" role="dialog" aria-labelledby="purchaseLabel" aria-hidden="true">
     <div class="modal-dialog">
+      <form>
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="purchaseLabel">Tapis Laporan</h4>
             </div>
             <div class="modal-body">
-                sup?
+              <div style="margin-left : 5px; margin-bottom : 7px;">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                  <label class="form-check-label" for="inlineCheckbox1">Pinjam</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                  <label class="form-check-label" for="inlineCheckbox2">Pulang</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                  <label class="form-check-label" for="inlineCheckbox2">Denda</label>
+                </div>
+                <span><br>(&#10003;) pada maklumat yang ingin didapatkan<br></span>
+              </div>
+              <div class="row" style="padding-top : 20px;">
+                    <div class="col-lg-6">
+                        <div class="form-group" style="border-style : solid; border-width : 1px; border-color : #cfcecc; border-radius : 5px;">
+                            <label for="terbit" style="margin-left : 10px;">Mula pada</label>
+                            <input type="date" id="date" name="start_year_acquisition" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group" style="border-style : solid; border-width : 1px; border-color : #cfcecc; border-radius : 5px;">
+                        <label for="terbit" style="margin-left : 10px;">Akhir pada</label>
+                        <input type="date" id="date" name="end_year_acquisition" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-left : 5px; margin-bottom : 7px;margin-top : -35px;">
+                <span><br>(&#10003;) pada jenis tapisan<br></span>
+                  <table style="margin-left : 15px;" id="jenistarikh">
+                    <td>
+                        <td><input class="form-check-input" id="chkMango" type="checkbox" value="1"/><label for="chkMango">Tarikh Pinjam</label></td>
+                    </td>
+                    <td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" id="chkApple" type="checkbox" value="2"/><label for="chkApple">Tarikh Pulang</label></td>
+                    </td>
+                  </table>
+                </div>
+
             </div>
+            
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary">Pergi Cari 
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search-heart" viewBox="0 0 16 16">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-dark" type="button">Mencari
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search-heart" viewBox="0 0 16 16">
                     <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z"/>
                     <path d="M13 6.5a6.471 6.471 0 0 1-1.258 3.844c.04.03.078.062.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1.007 1.007 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5ZM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z"/>
-                  </svg>
-              </button>
+                </svg>
+                </button>
             </div>
         </div>
+      </form>
     </div>
 </div>
 
@@ -64,7 +108,7 @@
       <th scope="col">Tarikh Pinjam</th>
       <th scope="col">Tarikh Pulang</th>
       <th scope="col">Bayaran Denda</th>
-      <th scope="col">Waktu Operasi</th>
+      <th scope="col">Operasi Pada</th>
     </tr>
   </thead>
   <tbody>
@@ -96,6 +140,20 @@ function goFullScreen()
       console.log(e);
   });
 }
+
+window.onload = function () {
+        var tblFruits = document.getElementById("jenistarikh");
+        var chks = tblFruits.getElementsByTagName("INPUT");
+        for (var i = 0; i < chks.length; i++) {
+            chks[i].onclick = function () {
+                for (var i = 0; i < chks.length; i++) {
+                    if (chks[i] != this && this.checked) {
+                        chks[i].checked = false;
+                    }
+                }
+            };
+        }
+    };
 
 function printReport()
 {
