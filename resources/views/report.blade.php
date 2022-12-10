@@ -124,7 +124,7 @@
   </thead>
   <tbody>
     <?php $key = 1; ?>
-    @foreach( $data as $val )
+    @forelse( $data as $val )
     <tr>
       <th scope="row">{{ $key++ }}</th>
       <td>{{ $val->student_name }}</td>
@@ -138,7 +138,17 @@
       @endif
       <td>{{ $carbon::createFromFormat('Y-m-d H:i:s', $val->created_at, 'UTC')->setTimezone('Asia/Kuala_Lumpur') }}</td>
     </tr>
-    @endforeach
+    @empty
+    <tr>
+      <th scope="row">#</th>
+      <td>-</td>
+      <td>-</td>
+      <td>Tiada sejarah peminjaman buku yang dibuat.</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    @endforelse
   </tbody>
 </table>
 </div>
