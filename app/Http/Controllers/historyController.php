@@ -10,7 +10,7 @@ class historyController extends Controller
     //
     function getReport()
     {
-        $history = history::all();
+        $history = history::limit(14)->get();
         return view('report', ['data' => $history]);
     }
 }

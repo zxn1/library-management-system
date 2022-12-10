@@ -463,7 +463,10 @@ class bookController extends Controller
 
     function deleteBookLoan(Request $request)
     {
-        if(bookloan::find($request->id)->delete())
+        $bkloan = bookloan::find($request->id);
+        //->orderBy('id', 'asc')->first()->update(['penaltyCharge' => $chargeNPay])
+        $histo = history::where('student_name', $bkloan->students->fullname)->where('book_name', $bkloan->books->title)->orderBy('id', 'desc')->first()->update(['student_name' => '(Canceled)' . $bkloan->students->fullname]);
+        if($bkloan->delete())
         {
             return redirect()->back()->with('status', 'rekod pinjaman berjaya dipadamkan.');
         } else {
