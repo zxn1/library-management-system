@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         Commands\AutomatestudentYear::class,
+        Commands\starterLibrarySystem::class,
     ];
 
     /**
