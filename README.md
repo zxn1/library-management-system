@@ -12,23 +12,23 @@ Features:
 
 ## Quick start
 
-1. clone the repo
-git clone https://github.com/zxn1/library-management-system
+1. clone the repo <br>
+git clone https://github.com/zxn1/library-management-system <br>
 
-2. change current directory
-cd library-management-system
+2. change current directory <br>
+cd library-management-system <br>
 
-3. create .env file
-cp (unix) or copy (Windows) .env.example .env
+3. create .env file <br> 
+cp (unix) or copy (Windows) .env.example .env <br>
 
-4. generate env key
-php artisan key:generate
+4. generate env key <br> 
+php artisan key:generate <br>
+ 
+5. run command for init settings <br>
+php artisan automateStudentYear <br>
 
-5. run command for init settings
-php artisan automateStudentYear
-
-6. start server
-php artisan serve
+6. start server <br>
+php artisan serve <br>
 
 ## License
 
