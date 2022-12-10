@@ -9,6 +9,7 @@ use App\Http\Controllers\historyController;
 use App\Http\Controllers\language;
 use App\Http\Controllers\studentController;
 use App\Models\category;
+use App\Models\history;
 use App\Models\students;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -234,3 +235,5 @@ Route::post('/dashboardFilter', [Controller::class, 'displayDashboardWithFilter'
 Route::post('/updateAccProfile', [Controller::class, 'updateProfileImage'])->name('upAcProf');
 
 Route::get('/report', [historyController::class, 'getReport'])->name('report');
+
+Route::post('/reportFilter', [historyController::class, 'filterReport'])->name('rptfilter');

@@ -13,7 +13,8 @@
 <!-- Modal -->
 <div style="top : 23%;" class="modal fade" id="purchaseModal" tabindex="-1" role="dialog" aria-labelledby="purchaseLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <form>
+      <form action="{{ route('rptfilter') }}" method="POST">
+        @csrf
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -22,15 +23,15 @@
             <div class="modal-body">
               <div style="margin-left : 5px; margin-bottom : 7px;">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="pinjam" value="option1">
                   <label class="form-check-label" for="inlineCheckbox1">Pinjam</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="pulang" value="option2">
                   <label class="form-check-label" for="inlineCheckbox2">Pulang</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="denda" value="option2">
                   <label class="form-check-label" for="inlineCheckbox2">Denda</label>
                 </div>
                 <span><br>(&#10003;) pada maklumat yang ingin didapatkan<br></span>
@@ -39,13 +40,13 @@
                     <div class="col-lg-6">
                         <div class="form-group" style="border-style : solid; border-width : 1px; border-color : #cfcecc; border-radius : 5px;">
                             <label for="terbit" style="margin-left : 10px;">Mula pada</label>
-                            <input type="date" id="date" name="start_year_acquisition" class="form-control">
+                            <input type="date" id="date" name="start_year" class="form-control">
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group" style="border-style : solid; border-width : 1px; border-color : #cfcecc; border-radius : 5px;">
                         <label for="terbit" style="margin-left : 10px;">Akhir pada</label>
-                        <input type="date" id="date" name="end_year_acquisition" class="form-control">
+                        <input type="date" id="date" name="end_year" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -54,10 +55,10 @@
                 <span><br>(&#10003;) pada jenis tapisan<br></span>
                   <table style="margin-left : 15px;" id="jenistarikh">
                     <td>
-                        <td><input class="form-check-input" id="chkMango" type="checkbox" value="1"/><label for="chkMango">Tarikh Pinjam</label></td>
+                        <td><input class="form-check-input" id="tapistarikh" name="tapistarikh" type="checkbox" value="1"/><label for="tapistarikh">Tarikh Pinjam</label></td>
                     </td>
                     <td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" id="chkApple" type="checkbox" value="2"/><label for="chkApple">Tarikh Pulang</label></td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" name="tapistarikh" id="tapistarikh" type="checkbox" value="2"/><label for="tapistarikh">Tarikh Pulang</label></td>
                     </td>
                   </table>
                 </div>
@@ -121,7 +122,7 @@
       <td>{{ $val->date_borrow }}</td>
       <td>{{ $val->date_return }}</td>
       @if($val->penaltyCharge != null)
-      <td>RM {{ $val->penaltyCharge }}</td>
+      <td>RM {{ number_format($val->penaltyCharge, 2, '.', ','); }}</td>
       @else
       <td></td>
       @endif
@@ -131,7 +132,11 @@
   </tbody>
 </table>
 </div>
+@if (session('norow'))
+<span>{{ session('norow') }}</span>
+@else
 <a href="#" data-toggle="modal" data-target="#purchaseModal"><span style="color :blue; text-decoration: underline;">Lihat lagi rekod</span></a>
+@endif
 </center>
 <script>
 function goFullScreen()
