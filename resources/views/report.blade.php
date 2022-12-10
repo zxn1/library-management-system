@@ -63,6 +63,16 @@
                   </table>
                 </div>
 
+                <div style="margin-left : 70%;">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="forlimit" onclick="haveLimit()" value="op">
+                    <label class="form-check-label" for="checlimit">Limit Rekod</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-control" type="number" min="0" max="9999" id="limit" name="limit" placeholder="150" disabled="true">
+                  </div>
+                </div>
+
             </div>
             
             <div class="modal-footer">
@@ -170,6 +180,18 @@ function printReport()
   WinPrint.print();
   WinPrint.close();
 }
+
+function haveLimit()
+{
+  //alert('test');
+  if(document.getElementById('forlimit').checked == true)
+  {
+    document.querySelector('#limit').disabled = false;
+  } else {
+    document.querySelector('#limit').disabled = true;
+  }
+}
+
 </script>
 <script src="{{ asset('/js/bootstrap.js') }}"></script>
 <script src="{{ asset('/js/jquery.min.js') }}"></script>

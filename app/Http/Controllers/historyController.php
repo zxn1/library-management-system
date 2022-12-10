@@ -68,17 +68,33 @@ class historyController extends Controller
                     //$history = $history->select('penaltyCharge');
                 }
 
-                if($request->pulang == null)
+                if($request->limit !=null)
                 {
-                    if($request->denda != null)
+                    if($request->pulang == null)
                     {
-                        $history = $history->where('date_return', '<>' ,null)->select($arr)->get();
-                        //$history = $history->select('penaltyCharge');
+                        if($request->denda != null)
+                        {
+                            $history = $history->where('date_return', '<>' ,null)->select($arr)->limit($request->limit)->get();
+                            //$history = $history->select('penaltyCharge');
+                        } else {
+                            $history = $history->where('date_return', null)->select($arr)->limit($request->limit)->get();
+                        }
                     } else {
-                        $history = $history->where('date_return', null)->select($arr)->get();
+                        $history = $history->select($arr)->limit($request->limit)->get();
                     }
                 } else {
-                    $history = $history->select($arr)->get();
+                    if($request->pulang == null)
+                    {
+                        if($request->denda != null)
+                        {
+                            $history = $history->where('date_return', '<>' ,null)->select($arr)->get();
+                            //$history = $history->select('penaltyCharge');
+                        } else {
+                            $history = $history->where('date_return', null)->select($arr)->get();
+                        }
+                    } else {
+                        $history = $history->select($arr)->get();
+                    }   
                 }
             }
 
