@@ -19,17 +19,29 @@ git clone https://github.com/zxn1/library-management-system <br>
 2. change current directory <br>
 cd library-management-system <br>
 
-3. create .env file <br> 
+3. install dependencies
+composer install
+
+4. create .env file <br> 
 cp (unix) or copy (Windows) .env.example .env <br>
 
-4. generate env key <br> 
+5. generate env key <br> 
 php artisan key:generate <br>
  
-5. run command for init settings <br>
+6. run command for init settings <br>
 php artisan automateStudentYear <br>
 
-6. start server <br>
+7. start server <br>
 php artisan serve <br>
+
+## Login details
+Account 1 - Full Access
+email : cikgu@gmail.com
+pass  : admin
+
+Account 2 (Pengawas)
+email : pengawas@gmail.com
+pass  : admin
 
 ## License
 
