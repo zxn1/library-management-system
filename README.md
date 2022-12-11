@@ -19,8 +19,8 @@ git clone https://github.com/zxn1/library-management-system <br>
 2. change current directory <br>
 cd library-management-system <br>
 
-3. install dependencies
-composer install
+3. install dependencies <br>
+composer install <br>
 
 4. create .env file <br> 
 cp (unix) or copy (Windows) .env.example .env <br>
@@ -35,13 +35,13 @@ php artisan automateStudentYear <br>
 php artisan serve <br>
 
 ## Login details
-Account 1 - Full Access
-email : cikgu@gmail.com
-pass  : admin
-
-Account 2 (Pengawas)
-email : pengawas@gmail.com
-pass  : admin
+Account 1 - Full Access <br>
+email : cikgu@gmail.com <br>
+pass  : admin <br>
+<br>
+Account 2 (Pengawas) <br>
+email : pengawas@gmail.com <br>
+pass  : admin <br>
 
 ## License
 
