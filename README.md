@@ -8,7 +8,8 @@ Features:
 - Generate Student's Card/print card
 - Generate a report/print report of loan books
 - Automatic update the student's year (cron job)
-- Advanced search filtering
+- Advanced search filtering (php carbon/date related)
+- Export history column in database to excel/download (maatwebsite/excel)
 
 ## Quick start
 
