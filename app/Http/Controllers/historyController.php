@@ -9,6 +9,10 @@ use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+//excel export
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class historyController extends Controller
 {
     //
@@ -101,6 +105,16 @@ class historyController extends Controller
             Session::flash('norow', 'Sebanyak ' . count($history) . ' rekod laporan dijumpai.');
             //$history = history::whereDate('return_date', '<', now())->get();
             return view('report', ['data' => $history]);
+        }
+    }
+
+    function export2excel()
+    {
+        if(Auth::check())
+        {
+            return Excel::download(new UsersExport, 'Sejarah_Pinjaman_Buku.xlsx');
+        } else {
+            print 'Maklumat ini adalah sulit! Mohon login terlebih dahulu.';
         }
     }
 }

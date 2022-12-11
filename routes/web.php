@@ -237,3 +237,5 @@ Route::post('/updateAccProfile', [Controller::class, 'updateProfileImage'])->nam
 Route::get('/report', [historyController::class, 'getReport'])->name('report');
 
 Route::post('/reportFilter', [historyController::class, 'filterReport'])->name('rptfilter');
+
+Route::get('/report/export/', [historyController::class, 'export2excel'])->name('exportreport');
