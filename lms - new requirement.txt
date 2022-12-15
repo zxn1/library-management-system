@@ -1,0 +1,8 @@
+bahagian scan barcode .. sama ada nama penuh atau by pssid
+
+report filter untuk tahun 1/2/3/4/5/6
+
+profile pelajar - tak perlu alamat
+tarikh lahir pun
+
+tambah jenis carian di buku - fiksyen bahasa melayu (kategori + bahasa) berapa total
