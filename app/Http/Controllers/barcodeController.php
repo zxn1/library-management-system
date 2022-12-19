@@ -42,7 +42,6 @@ class barcodeController extends Controller
             return redirect()->route('login');
         } else {
             $validator =  Validator::make($request->all(), [
-                'pssid' => 'required',
                 'days' => 'required',
                 'bookid' => 'required',
                 'date' => 'required'
@@ -52,28 +51,67 @@ class barcodeController extends Controller
                 return redirect()->route('barcode')->with('failsx', 'maklumat tidak dilengkapkan.');
             } else 
             {
-                if(students::where('unique_id', $request->pssid)->exists())
+                $flag = false;
+                if($request->pssid != null)
                 {
-                    $return_date = Carbon::parse($request->date)->addDays((int)$request->days)->format("Y-m-d");
-                    //return ['test' => $return_date, 'sdfad' => $request->date];
-                    $bkloan = new bookloan;
-                    $bkloan->book_id = $request->bookid;
-                    $bkloan->unique_stud_id = $request->pssid;
-                    $bkloan->loan_date = $request->date;
-                    $bkloan->return_date = $return_date;
-                    if($bkloan->save())
+                    //return $request->pssid;
+                    $flag = true;
+                    if(students::where('unique_id', $request->pssid)->exists())
                     {
-                        $histo = new history;
-                        $histo->student_name = $bkloan->students->fullname;
-                        $histo->book_name = $bkloan->books->title;
-                        $histo->date_borrow = $request->date;
-                        $histo->save();
-                        return redirect()->route('barcode')->with('success', 'Buku telah berjaya dipinjamkan!');
+                        $return_date = Carbon::parse($request->date)->addDays((int)$request->days)->format("Y-m-d");
+                        //return ['test' => $return_date, 'sdfad' => $request->date];
+                        $bkloan = new bookloan;
+                        $bkloan->book_id = $request->bookid;
+                        $bkloan->unique_stud_id = $request->pssid;
+                        $bkloan->loan_date = $request->date;
+                        $bkloan->return_date = $return_date;
+                        if($bkloan->save())
+                        {
+                            $histo = new history;
+                            $histo->student_name = $bkloan->students->fullname;
+                            $histo->book_name = $bkloan->books->title;
+                            $histo->date_borrow = $request->date;
+                            $histo->save();
+                            return redirect()->route('barcode')->with('success', 'Buku telah berjaya dipinjamkan!');
+                        } else {
+                            return redirect()->route('barcode')->with('failsx', 'Maklumat tidak berjaya didaftarkan.');
+                        }
                     } else {
-                        return redirect()->route('barcode')->with('failsx', 'Maklumat tidak berjaya didaftarkan.');
+                        return redirect()->route('barcode')->with('failsx', 'PSS ID pelajar yang dimasukkan tidak ditemui!');
                     }
-                } else {
-                    return redirect()->route('barcode')->with('failsx', 'PSS ID pelajar yang dimasukkan tidak ditemui!');
+                }
+
+                if($flag == false)
+                {
+                    if($request->studname != null)
+                    {
+                        $studd = students::where('fullname', $request->studname);
+                        if($studd->exists())
+                        {
+                            $return_date = Carbon::parse($request->date)->addDays((int)$request->days)->format("Y-m-d");
+                            //return ['test' => $return_date, 'sdfad' => $request->date];
+                            $bkloan = new bookloan;
+                            $bkloan->book_id = $request->bookid;
+                            $bkloan->unique_stud_id = $studd->first()->unique_id;
+                            $bkloan->loan_date = $request->date;
+                            $bkloan->return_date = $return_date;
+                            if($bkloan->save())
+                            {
+                                $histo = new history;
+                                $histo->student_name = $bkloan->students->fullname;
+                                $histo->book_name = $bkloan->books->title;
+                                $histo->date_borrow = $request->date;
+                                $histo->save();
+                                return redirect()->route('barcode')->with('success', 'Buku telah berjaya dipinjamkan!');
+                            } else {
+                                return redirect()->route('barcode')->with('failsx', 'Maklumat tidak berjaya didaftarkan.');
+                            }
+                        } else {
+                            return redirect()->route('barcode')->with('failsx', 'PSS ID pelajar yang dimasukkan tidak ditemui!');
+                        }
+                    } else {
+                        return redirect()->route('barcode')->with('failsx', 'Sila masukkan PSS ID atau nama pelajar!');
+                    }
                 }
             }
         }

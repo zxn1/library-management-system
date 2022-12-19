@@ -237,4 +237,17 @@ class studentController extends Controller
             return view('viewSpecificLoan', ['data' => $bkloan, 'denda' => $arr, 'nama' => students::where('unique_id', $stud_id)->first()]);
         }
     }
+
+    function studQuery(Request $request)
+    {
+        $stud = students::where('fullname', 'LIKE', '%' . $request->search . '%')->select('fullname')->limit('4')->get();
+        $array = [];
+
+        for($i = 0; $i < count($stud); $i++)
+        {
+            array_push($array, ''. $stud[$i]->fullname);
+        }
+
+        return $array;
+    }
 }

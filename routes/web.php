@@ -190,6 +190,8 @@ Route::get('/viewStudent/{id}', [studentController::class, 'viewStudent']);
 
 Route::get('/bookName/{search}', [bookController::class, 'bookQuery']);
 
+Route::get('/studname/{search}', [studentController::class, 'studQuery']);
+
 Route::post('/bookLoanRegister', [bookController::class, 'getRegBookLoan'])->name('bookloanReg');
 
 Route::post('/searchBookloanByName', [bookController::class, 'searchbookloanbystudent'])->name('srchbklnname');
