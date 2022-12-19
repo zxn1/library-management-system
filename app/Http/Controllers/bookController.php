@@ -449,6 +449,7 @@ class bookController extends Controller
                 $histo = new history;
                 $histo->student_name = $bkloan->students->fullname;
                 $histo->book_name = $request->bookname;
+                $histo->student_years = $bkloan->students->year;
                 $histo->date_borrow = $request->dateloan;
                 $histo->save();
 
@@ -539,6 +540,7 @@ class bookController extends Controller
         $histo = new history;
         $histo->student_name = $bkloan->students->fullname;
         $histo->book_name = $book;
+        $histo->student_years = $bkloan->students->year;
         $dateBorr = Carbon::parse($bkloan->loan_date)->format("Y-m-d");
         $histo->date_borrow = $dateBorr;
         $dateNow = Carbon::now()->format("Y-m-d");

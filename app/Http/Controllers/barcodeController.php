@@ -56,7 +56,8 @@ class barcodeController extends Controller
                 {
                     //return $request->pssid;
                     $flag = true;
-                    if(students::where('unique_id', $request->pssid)->exists())
+                    $studdend = students::where('unique_id', $request->pssid);
+                    if($studdend->exists())
                     {
                         $return_date = Carbon::parse($request->date)->addDays((int)$request->days)->format("Y-m-d");
                         //return ['test' => $return_date, 'sdfad' => $request->date];
@@ -70,6 +71,7 @@ class barcodeController extends Controller
                             $histo = new history;
                             $histo->student_name = $bkloan->students->fullname;
                             $histo->book_name = $bkloan->books->title;
+                            $histo->student_years = $studdend->first()->year;
                             $histo->date_borrow = $request->date;
                             $histo->save();
                             return redirect()->route('barcode')->with('success', 'Buku telah berjaya dipinjamkan!');
@@ -99,6 +101,7 @@ class barcodeController extends Controller
                             {
                                 $histo = new history;
                                 $histo->student_name = $bkloan->students->fullname;
+                                $histo->student_years = $studd->first()->year;
                                 $histo->book_name = $bkloan->books->title;
                                 $histo->date_borrow = $request->date;
                                 $histo->save();

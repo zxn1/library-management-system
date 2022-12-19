@@ -12,6 +12,7 @@ class history extends Model
     protected $fillable = [
         'student_name',
         'book_name',
+        'student_years',
         'date_borrow',
         'date_return',
         'penaltyCharge'

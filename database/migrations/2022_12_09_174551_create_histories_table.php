@@ -27,6 +27,7 @@ class CreateHistoriesTable extends Migration
             $table->id();
             $table->string('student_name');
             $table->string('book_name');
+            $table->integer('student_years');
             $table->date('date_borrow');
             $table->date('date_return')->nullable();
             $table->float('penaltyCharge')->nullable();
