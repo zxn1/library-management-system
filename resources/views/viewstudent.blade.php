@@ -132,7 +132,7 @@ input[type=submit] {
         </div>
         @endif
 
-        <div style="margin : 50px;">
+        <div style="margin-left : 75px; margin-right : 75px;">
             <h4 style="margin-top : 40px; margin-bottom : 23px;">Maklumat Pelajar</h4>
 
             <div class="form-row">
@@ -147,7 +147,11 @@ input[type=submit] {
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="row" style="margin-left : 10px;">
+                <span style="color : #96948d">Didaftarkan pada : {{ $data->created_at }}</span>
+            </div>
+
+            <!--<div class="form-row">
                 <div class="form-group col-md-7">
                     <div class="form-group">
                         <label for="inputAddress2">Nama Jalan</label>
@@ -186,7 +190,7 @@ input[type=submit] {
                         <input type="date" id="date" name="dobdate" style="height : 35px;" value="{{$data->dob}}" disabled>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
         </div>
     </div>
