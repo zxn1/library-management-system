@@ -11,7 +11,7 @@
 </style>
 
 <!-- Modal -->
-<div style="top : 23%;" class="modal fade" id="purchaseModal" tabindex="-1" role="dialog" aria-labelledby="purchaseLabel" aria-hidden="true">
+<div style="top : 15%;" class="modal fade" id="purchaseModal" tabindex="-1" role="dialog" aria-labelledby="purchaseLabel" aria-hidden="true">
     <div class="modal-dialog">
       <form action="{{ route('rptfilter') }}" method="POST">
         @csrf
@@ -63,13 +63,33 @@
                   </table>
                 </div>
 
-                <div style="margin-left : 70%;">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="forlimit" onclick="haveLimit()" value="op">
-                    <label class="form-check-label" for="checlimit">Limit Rekod</label>
+                <hr>
+
+                <div class="row">
+                  <div class="col-lg-8">
+                    <div style="margin-top : 5px;">
+                      <span style="color : #7d7d7d">Pilih data bagi pelajar tahun?(*optional)</span>
+                      <select name="student_years" class="form-select" aria-label="Default select example">
+                        <option selected disabled>Pelajar tahun?</option>
+                        <option value="1">Tahun 1</option>
+                        <option value="2">Tahun 2</option>
+                        <option value="3">Tahun 3</option>
+                        <option value="4">Tahun 4</option>
+                        <option value="5">Tahun 5</option>
+                        <option value="6">Tahun 6</option>
+                      </select>
+                    </div>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-control" type="number" min="0" max="9999" id="limit" name="limit" placeholder="150" disabled="true">
+                  <div class="col-lg-4">
+                    <div style="margin-left : 0px; margin-top : 3px;">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="forlimit" onclick="haveLimit()" value="op">
+                        <label class="form-check-label" for="checlimit">Limit Rekod</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-control" type="number" min="0" max="9999" id="limit" name="limit" placeholder="150" disabled="true">
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -88,6 +108,7 @@
       </form>
     </div>
 </div>
+<!-- end modal -->
 
 <div class="btn-group-fab" role="group" aria-label="FAB Menu">
   <div>

@@ -50,6 +50,12 @@ class historyController extends Controller
                     $history = history::whereBetween('date_return', [$request->start_year, $request->end_year]);
                 }
 
+                if($request->student_years != null)
+                {
+                    //return $request->student_years;
+                    $history = $history->where('student_years', $request->student_years);
+                }
+
                 //part 2
                 //$history = $history->select('student_name', 'book_name', 'created_at');
 
