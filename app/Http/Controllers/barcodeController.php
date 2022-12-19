@@ -117,6 +117,30 @@ class barcodeController extends Controller
         }
     }
 
+    function procReturnWithBarcode(Request $request)
+    {
+        $stud = '';
+        if($request->pssid != null)
+        {
+            $stud = students::where('unique_id', $request->pssid)->first();
+        } else if($request->studname != null)
+        {
+            $stud = students::where('fullname', $request->studname)->first();
+        }
+
+        if($request->pssid == null && $request->studname == null)
+        {
+            return redirect()->back()->with('failsx', 'Sila pastikan semua maklumat diperlukan dimasukkan!');
+        }
+
+        if($stud != null)
+        {
+            return view('returnBookScan', ['data' => $stud]);
+        } else {
+            return redirect()->back()->with('failsx', 'Pelajar yang dicari tidak dijumpai!');
+        }
+    }
+
     function checkAvailability(Request $request)
     {
         $stud = students::where('unique_id', $request->id);

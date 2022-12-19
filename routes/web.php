@@ -106,6 +106,8 @@ Route::get('/returnBookWBarcode', function()
     return view('returnbookchoose');
 })->name('returnwbarcode');
 
+Route::post('/procReturnWithBarcode', [barcodeController::class, 'procReturnWithBarcode'])->name('procRetWBar');
+
 Route::get('/bookLoan', [bookController::class, 'displayBookLoan'])->name('bkloan');
 
 //go to controller
@@ -214,6 +216,8 @@ Route::get('/penaltyCharge/{id}', [bookController::class, 'penaltyPay']);
 Route::get('/payPenalty/{id}', [bookController::class, 'payPenalty']);
 
 Route::get('/returnBookComplete/{id}', [bookController::class, 'doneReturnBook']);
+
+Route::post('/returnBookDone', [bookController::class, 'doneReturnBook'])->name('retBookComplete');
 
 Route::get('/setting', [Controller::class, 'displaySetting'])->name('setting');
 

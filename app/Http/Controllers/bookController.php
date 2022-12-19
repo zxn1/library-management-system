@@ -515,7 +515,14 @@ class bookController extends Controller
 
     function doneReturnBook(Request $request)
     {
-        $bkloan = bookloan::find($request->id);
+        $bkloan = '';
+        if($request->barcode != null)
+        {
+            $bkloan = bookloan::find(bookloan::where('unique_stud_id', $request->unique_id)->where('book_id', books::where('acquisition', $request->barcode)->first()->id)->first()->id);
+        } else {
+            $bkloan = bookloan::find($request->id);
+        }
+
         $nama = $bkloan->unique_stud_id;
         $book = $bkloan->books->title;
         //setting::find(1)->chargeperday;
@@ -538,6 +545,16 @@ class bookController extends Controller
             $histo->penaltyCharge = 0.00;
         }
         $histo->save();
+
+        if($request->barcode != null)
+        {
+            if($bkloan->delete())
+            {
+                return redirect()->route('dash')->with('status', 'Pelajar (' . $nama . ') telah berjaya memulangkan buku (' . $book . ')!');
+            } else {
+                return redirect()->route('dash')->with('error', 'Gagal merekodkan pemulangan buku.');
+            }
+        }
 
         if($bkloan->delete())
         {
