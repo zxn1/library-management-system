@@ -68,6 +68,8 @@ Route::post('/register', [Controller::class, 'goRegisterAdmin'])->name('register
     }
 })->name('bkreg');*/
 
+Route::get('/calcTotalBook/{id1}/{id2}', [Controller::class, 'calcTotalBook']);
+
 Route::get('/bookregister', [categoryController::class, 'getCategoryName'])->name('bkreg');
 
 Route::post('/getBookRegister', [bookController::class, 'getRegister'])->name('databookreg');

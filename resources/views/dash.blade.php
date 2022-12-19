@@ -132,6 +132,82 @@
 
 
     <div class="main__cards">
+
+    <div class="card">
+        <div class="card__header" style="min-height : 100px; border-radius : 8px;">
+          <div class="card__header-title text-light">
+            <span style="font-size : 13px;">Jumlah buku bagi Kategori dan Bahasa.</span>
+            
+            <table>
+              <tr>
+                <td>
+                    <select id="categ_selection" style="width : '100%'" class="form-select" aria-label="Default select example">
+                      <option selected disabled>Pilih jenis Kategori buku</option>
+                      @forelse( $categ as $index => $data )
+                      <option value="{{ $data->id }}">{{ $data->category_name }}</option>
+                      @empty
+                      <option selected disabled>Tiada kategori didalam rekod</option>
+                      @endforelse
+                  </select>
+                </td>
+                <td>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/>
+                </svg>
+                </td>
+                <td>
+                  <select id="lang_selection" style="width : '100%'" class="form-select" aria-label="Default select example">
+                    <option selected disabled>Pilih jenis Bahasa buku</option>
+                    @forelse( $lang as $index => $data )
+                    <option value="{{ $data->id }}">{{ $data->type_lang }}</option>
+                    @empty
+                    <option selected disabled>Tiada kategori didalam rekod</option>
+                    @endforelse
+                </select>
+                </td>
+                <td>
+                  <button onclick="kiraJumlahKategPlusLang()" type="button" class="btn btn-info" style="margin-left : 10px;">Kira
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
+                      <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+                      <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/>
+                    </svg>
+                  </button>
+                </td>
+                <td>
+                  <h1 id="resTotal" style="margin-left: 15px;">N/A</h1>
+                </td>
+              </tr>
+            </table>
+            <!--
+            <div class="row">
+              <div class="col-lg-6">
+                <select style="width : '100%'" class="form-select" aria-label="Default select example">
+                  <option selected disabled>Pilih jenis Kategori buku</option>
+                  @forelse( $categ as $index => $data )
+                  <option value="{{ $data->id }}">{{ $data->category_name }}</option>
+                  @empty
+                  <option selected disabled>Tiada kategori didalam rekod</option>
+                  @endforelse
+                </select>
+              </div>
+
+              <div class="col-lg-6">
+                <select style="width : '100%'" class="form-select" aria-label="Default select example">
+                  <option selected disabled>Pilih jenis Bahasa buku</option>
+                  @forelse( $lang as $index => $data )
+                  <option value="{{ $data->id }}">{{ $data->type_lang }}</option>
+                  @empty
+                  <option selected disabled>Tiada kategori didalam rekod</option>
+                  @endforelse
+              </select>
+              </div>
+
+            </div> -->
+
+          </div>
+        </div>
+      </div>
+
       <div class="card" style="border-radius: 13px;">
         <div class="card__header" style="border-top-left-radius : 13px; border-top-right-radius : 13px;">
           <div class="card__header-title text-light">Jumlah <strong>Buku</strong> bagi setiap <strong style="color :aqua">kategori</strong>
@@ -146,7 +222,7 @@
 
         <!-- buh sini nanti data data pasal kategori setiap buku -->
         <div style="width : 100%;">
-            <div class="overflow-auto" style="height : 500px;">
+            <div class="overflow-auto" style="height : 350px;">
             <ol class="list-group list-group-light list-group-numbered" style="margin : 17px;">
                 @foreach( $categ as $index => $data )
                   <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -179,15 +255,32 @@
         <center><div style="margin-top : 5px;" id="barchartz" style="position : relative;"></div></center>
       </div>
 
-      <div class="card">
-        <div class="card__header" style="height : 90px; border-radius : 8px; opacity : 0.3;">
-          <div class="card__header-title text-light">
-          </div>
-        </div>
-      </div>
     </div> <!-- /.main-cards -->
     
     <script>
+
+      function kiraJumlahKategPlusLang()
+      {
+        //id="lang_selection"
+        let categ_id = document.getElementById('categ_selection').value;
+        let lang_id = document.getElementById('lang_selection').value;
+
+        if(categ_id != 'Pilih jenis Kategori buku' && lang_id != 'Pilih jenis Bahasa buku')
+        {
+          var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    //document.getElementById("txtHint").innerHTML = this.responseText;
+                    //alert(this.responseText);
+                    document.getElementById('resTotal').innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "/calcTotalBook/" + categ_id + '/' + lang_id, true);
+            xmlhttp.send();
+        }
+        //alert('categ : ' + $categ_id + ' -  lang : ' + $lang_id);
+      }
+
       var options = {
             chart: {
               type: 'bar',

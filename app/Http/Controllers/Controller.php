@@ -7,6 +7,7 @@ use App\Models\setting;
 use App\Models\User;
 use App\Models\books;
 use App\Models\category;
+use App\Models\languages;
 use App\Models\students;
 use App\Models\userInfo;
 use Illuminate\Http\Request;
@@ -226,6 +227,9 @@ class Controller extends BaseController
         $catetot = $category->count();
         //return $category;
 
+        //extra part
+        $language = languages::all();
+
         //part 3
         //total pelajar
         $studtot = students::count();
@@ -260,7 +264,17 @@ class Controller extends BaseController
         $year5 = students::where('year', '5')->count();//tahun 5
         $year6 = students::where('year', '6')->count();//tahun 6
 
-        return view('dash', ['booktot' => $booktot, 'categtot' => $catetot, 'studtot' => $studtot, 'categ' => $category, 'arr_bookcateg' => $arr_bookcateg, 'bookloan' => $bookloan, 'year1' => $year1, 'year2' => $year2, 'year3' => $year3, 'year4' => $year4, 'year5' => $year5, 'year6' => $year6]);
+        return view('dash', ['booktot' => $booktot, 'categtot' => $catetot, 'studtot' => $studtot, 'categ' => $category, 'arr_bookcateg' => $arr_bookcateg, 'bookloan' => $bookloan, 'year1' => $year1, 'year2' => $year2, 'year3' => $year3, 'year4' => $year4, 'year5' => $year5, 'year6' => $year6, 'lang' => $language]);
+    }
+
+    function calcTotalBook(Request $request)
+    {
+        ///calcTotalBook/{id1}/{id2}
+        //return $request->id1 . '  -  ' . $request->id2;
+        $categ_id = $request->id1;
+        $lang_id = $request->id2;
+        $total = count(books::where('categ_id', $categ_id)->where('lang_id', $lang_id)->get());
+        return $total;
     }
 
     function displayDashboardWithFilter(Request $request)
