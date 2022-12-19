@@ -518,7 +518,15 @@ class bookController extends Controller
         $bkloan = '';
         if($request->barcode != null)
         {
-            $bkloan = bookloan::find(bookloan::where('unique_stud_id', $request->unique_id)->where('book_id', books::where('acquisition', $request->barcode)->first()->id)->first()->id);
+            $book = books::where('acquisition', $request->barcode);
+            $bookloan = bookloan::where('unique_stud_id', $request->unique_id);
+            if($book->exists() && $bookloan->exists())
+            {
+                $bkloan = bookloan::find($bookloan->where('book_id', $book->first()->id)->first()->id);
+            } else {
+                Session::flash('faillogout', "Tiada rekod pinjaman bagi pelajar ini!");
+                return redirect()->route('dash')->with('error', 'Tiada rekod pinjaman bagi pelajar ini!');
+            }
         } else {
             $bkloan = bookloan::find($request->id);
         }
@@ -550,16 +558,20 @@ class bookController extends Controller
         {
             if($bkloan->delete())
             {
+                Session::flash('dashstats', 'Pelajar (' . $nama . ') telah berjaya memulangkan buku (' . $book . ')!');
                 return redirect()->route('dash')->with('status', 'Pelajar (' . $nama . ') telah berjaya memulangkan buku (' . $book . ')!');
             } else {
+                Session::flash('faillogout', 'Gagal merekodkan pemulangan buku.');
                 return redirect()->route('dash')->with('error', 'Gagal merekodkan pemulangan buku.');
             }
         }
 
         if($bkloan->delete())
         {
+            Session::flash('dashstats', 'Pelajar (' . $nama . ') telah berjaya memulangkan buku (' . $book . ')!');
             return redirect()->back()->with('status', 'Pelajar (' . $nama . ') telah berjaya memulangkan buku (' . $book . ')!');
         } else {
+            Session::flash('faillogout', 'Gagal merekodkan pemulangan buku.');
             return redirect()->back()->with('error', 'Gagal merekodkan pemulangan buku.');
         }
     }
