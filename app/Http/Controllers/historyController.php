@@ -54,7 +54,7 @@ class historyController extends Controller
                 //$history = $history->select('student_name', 'book_name', 'created_at');
 
                 //part 2
-                $arr = ['student_name', 'book_name', 'created_at']; //default thing to retrieve
+                $arr = ['student_name', 'book_name', 'created_at', 'student_years']; //default thing to retrieve
                 if($request->pinjam != null)
                 {
                     //return 'sini';

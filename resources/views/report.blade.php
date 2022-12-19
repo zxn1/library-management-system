@@ -115,6 +115,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Nama Pelajar </th>
+      <th scope="col">Tahun </th>
       <th scope="col">Buku yang Dipinjam</th>
       <th scope="col">Tarikh Pinjam</th>
       <th scope="col">Tarikh Pulang</th>
@@ -128,6 +129,7 @@
     <tr>
       <th scope="row">{{ $key++ }}</th>
       <td>{{ $val->student_name }}</td>
+      <td>{{ $val->student_years }}</td>
       <td>{{ $val->book_name }}</td>
       <td>{{ $val->date_borrow }}</td>
       <td>{{ $val->date_return }}</td>
