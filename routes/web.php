@@ -101,6 +101,11 @@ Route::get('/barcode', function()
     return view('scanBarCode');
 })->name('barcode');
 
+Route::get('/returnBookWBarcode', function()
+{
+    return view('returnbookchoose');
+})->name('returnwbarcode');
+
 Route::get('/bookLoan', [bookController::class, 'displayBookLoan'])->name('bkloan');
 
 //go to controller
