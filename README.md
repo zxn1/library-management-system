@@ -29,10 +29,13 @@ cp (unix) or copy (Windows) .env.example .env <br>
 php artisan key:generate <br>
  
 6. run command for init settings <br>
-php artisan automateStudentYear <br>
+php artisan starterLibrary <br>
 
 7. start server <br>
 php artisan serve <br>
+
+8. Run cron job (scheduler) - student's year updater at 3.00 AM. <br>
+php artisan schedule:work <br>
 
 ## Login details
 Account 1 - Full Access <br>
