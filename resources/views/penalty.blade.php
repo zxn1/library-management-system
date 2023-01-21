@@ -23,6 +23,15 @@
     </div>
     @endif
 
+    @if (session('somepenalty'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Maaf!</strong> {{ session('somepenalty') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    @endif
+
        <div style="position : relative; top : 30px; margin : auto; background-color : lightgrey; box-shadow : 0 4px 5px rgb(0 0 0 / 50%); width : 550px;">
             <div style="margin : 30px; padding-top : 30px;">
                 <div>

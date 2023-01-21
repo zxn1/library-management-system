@@ -386,6 +386,13 @@ class bookController extends Controller
                 //array_push($arr, )
             }
             //return $arr;
+
+            //return if user is not a cikgu
+            if(Auth::user()->userInfo->role == 2)
+            {
+                return redirect()->route('returnwbarcode');
+            }
+
             return view('bookloan', ['data' => $bkloan, 'denda' => $arr]);
         }
     }
@@ -530,6 +537,15 @@ class bookController extends Controller
             }
         } else {
             $bkloan = bookloan::find($request->id);
+        }
+
+        //sini nanti tambah function untuk redirect
+        //if(Carbon::parse(Carbon::now()->format("Y-m-d"))->gt($bkloan[$i]->return_date))
+        if(Carbon::parse(Carbon::now()->format("Y-m-d"))->gt($bkloan->return_date))
+        {
+            //somepenalty
+            Session::flash('somepenalty', 'Pelajar mempunyai hutang, sila jelaskan hutang terlebih dahulu dan Scan buku semula untuk teruskan proses pemulangan buku.');
+            return redirect('/penaltyCharge/' . $bkloan->id);
         }
 
         $nama = $bkloan->unique_stud_id;
