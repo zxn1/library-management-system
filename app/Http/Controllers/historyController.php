@@ -32,7 +32,7 @@ class historyController extends Controller
 
             $history = "";
             $validator =  Validator::make($request->all(), [
-                'tapistarikh' => 'required',
+                //'tapistarikh' => 'required',
                 'start_year' => 'required',
                 'end_year' => 'required'
             ]);
@@ -40,6 +40,7 @@ class historyController extends Controller
             //return $request->start_year . '   ' . $request->end_year . '  ' .  $request->tapistarikh;
     
             if ($validator->fails()) {
+                //return 'fail';
             } else {
                 //part 1
                 if($request->tapistarikh == 1)
@@ -108,9 +109,17 @@ class historyController extends Controller
                 }
             }
 
-            Session::flash('norow', 'Sebanyak ' . count($history) . ' rekod laporan dijumpai.');
-            //$history = history::whereDate('return_date', '<', now())->get();
-            return view('report', ['data' => $history]);
+            //return $history;
+            if($history != '')
+            {
+                Session::flash('norow', 'Sebanyak ' . count($history) . ' rekod laporan dijumpai.');
+                //$history = history::whereDate('return_date', '<', now())->get();
+                return view('report', ['data' => $history]);   
+            } else {
+                Session::flash('norow', 'Tolong tanda filter dengan sebaiknya.');
+                //$history = history::whereDate('return_date', '<', now())->get();
+                return view('report', ['data' => []]);   
+            }
         }
     }
 

@@ -302,6 +302,9 @@ class Controller extends BaseController
         $catetot = $category->count();
         //return $category;
 
+        //extra part
+        $language = languages::all();
+
         //part 3
         //total pelajar
         $studtot = students::count();
@@ -345,7 +348,7 @@ class Controller extends BaseController
         $year6 = students::where('year', '6')->count();//tahun 6
 
         Session::flash('dashstats', "Maklumat dashboard telah ditapis mengikut julat tarikk buku diperoleh dari (" . $date1 .") hingga (" . $date2 . ").");
-        return view('dash', ['booktot' => $booktot, 'categtot' => $catetot, 'studtot' => $studtot, 'categ' => $category, 'arr_bookcateg' => $arr_bookcateg, 'bookloan' => $bookloan, 'year1' => $year1, 'year2' => $year2, 'year3' => $year3, 'year4' => $year4, 'year5' => $year5, 'year6' => $year6]);
+        return view('dash', ['booktot' => $booktot, 'categtot' => $catetot, 'studtot' => $studtot, 'categ' => $category, 'arr_bookcateg' => $arr_bookcateg, 'bookloan' => $bookloan, 'year1' => $year1, 'year2' => $year2, 'year3' => $year3, 'year4' => $year4, 'year5' => $year5, 'year6' => $year6, 'lang' => $language]);
     }
 
     function goRegisterAdmin(Request $request)
