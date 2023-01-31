@@ -112,11 +112,11 @@ class historyController extends Controller
             //return $history;
             if($history != '')
             {
-                Session::flash('norow', 'Sebanyak ' . count($history) . ' rekod laporan dijumpai.');
+                Session::flash('success', 'Sebanyak ' . count($history) . ' rekod laporan dijumpai.');
                 //$history = history::whereDate('return_date', '<', now())->get();
                 return view('report', ['data' => $history]);   
             } else {
-                Session::flash('norow', 'Tolong tanda filter dengan sebaiknya.');
+                Session::flash('error', 'Tolong tanda filter dengan sebaiknya.');
                 //$history = history::whereDate('return_date', '<', now())->get();
                 return view('report', ['data' => []]);   
             }
